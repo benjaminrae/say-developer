@@ -1,9 +1,19 @@
 package main
 
-import "github.com/labstack/echo/v4"
+import (
+	"github.com/benjaminrae/say-developer/internal/authenticator"
+	"github.com/benjaminrae/say-developer/internal/router"
+	"github.com/labstack/gommon/log"
+)
 
 func main() {
-	e := echo.New()
+	auth, err := authenticator.New()
 
-	e.Logger.Fatal(e.Start(":3000"))
+	if err != nil {
+		log.Fatalf("Couldn't initialize authentication %v", err)
+	}
+
+	router := router.New(auth)
+
+	router.Logger.Fatal(router.Start(":3000"))
 }
