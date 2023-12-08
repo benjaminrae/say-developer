@@ -1,4 +1,4 @@
-package router
+package server
 
 import (
 	"encoding/gob"
@@ -20,6 +20,8 @@ func New(auth *authenticator.Authenticator) *echo.Echo {
 	router.Use(session.MiddlewareWithConfig(session.Config{
 		Store: store,
 	}))
+
+	router.Renderer = CreateTemplateRenderer()
 
 	return router
 }
