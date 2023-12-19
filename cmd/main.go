@@ -1,19 +1,13 @@
 package main
 
 import (
-	"github.com/benjaminrae/say-developer/internal/authenticator"
-	"github.com/benjaminrae/say-developer/internal/router"
-	"github.com/labstack/gommon/log"
+	"github.com/benjaminrae/say-developer/internal/auth"
+	"github.com/benjaminrae/say-developer/internal/server"
 )
 
 func main() {
-	auth, err := authenticator.New()
+	auth.NewAuth()
+	s := server.New()
 
-	if err != nil {
-		log.Fatalf("Couldn't initialize authentication %v", err)
-	}
-
-	router := router.New(auth)
-
-	router.Logger.Fatal(router.Start(":3000"))
+	s.Logger.Fatal(s.Start(":3000"))
 }

@@ -2,26 +2,24 @@ package server
 
 import (
 	"encoding/gob"
+	"net/http"
 
-	"github.com/benjaminrae/say-developer/internal/authenticator"
-	"github.com/gorilla/sessions"
-	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
-func New(auth *authenticator.Authenticator) *echo.Echo {
+func New() *echo.Echo {
 	router := echo.New()
 
 	gob.Register(map[string]interface{}{})
 
-	store := sessions.NewCookieStore([]byte("secret"))
-	router.Use(middleware.Secure())
-	router.Use(session.MiddlewareWithConfig(session.Config{
-		Store: store,
-	}))
+	//	router.Renderer = CreateTemplateRenderer()
 
-	router.Renderer = CreateTemplateRenderer()
+	router.GET("/ping", func(c echo.Context) error {
+		return c.String(http.StatusOK, "OK")
+	})
+	router.GET("/auth/:provider/callback", AuthProviderCallbackHandler)
+	router.GET("/logout/:provider", LogoutProviderHandler)
+	router.GET("/auth/:provider", AuthHandler)
 
 	return router
 }
