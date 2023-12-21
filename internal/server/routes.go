@@ -1,17 +1,16 @@
 package server
 
 import (
-	"encoding/gob"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
-func New() *echo.Echo {
+func (s *Server) RegisterRoutes() http.Handler {
 	router := echo.New()
-
-	gob.Register(map[string]interface{}{})
-
+	router.Use(middleware.Logger())
+	router.Use(middleware.Recover())
 	//	router.Renderer = CreateTemplateRenderer()
 
 	router.GET("/ping", func(c echo.Context) error {
