@@ -27,3 +27,4 @@
 !.env.example
 
 !/frontend/**/*.*
+!/.github/**/*.*
