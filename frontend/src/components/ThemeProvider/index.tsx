@@ -1,5 +1,6 @@
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import { ThemeProvider as SCThemeProvider } from 'styled-components';
+import { themes } from '../../styles/themes';
 import { ThemeContext } from './context';
 import { usePreferredTheme } from './hooks';
 import { saveUserTheme } from './logic.helper';
@@ -18,11 +19,17 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     [setThemeState]
   );
 
-  const value = useMemo(() => ({ setTheme, theme }), [setTheme, theme]);
+  const toggleTheme = useCallback(() => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setThemeState(newTheme);
+    saveUserTheme(newTheme);
+  }, [setThemeState, theme]);
+
+  const value = useMemo(() => ({ setTheme, theme, toggleTheme }), [setTheme, theme, toggleTheme]);
 
   return (
     <ThemeContext.Provider value={value}>
-      <SCThemeProvider>{children}</SCThemeProvider>
+      <SCThemeProvider theme={themes[theme]}>{children}</SCThemeProvider>
     </ThemeContext.Provider>
   );
 };
