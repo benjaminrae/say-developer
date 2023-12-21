@@ -1,49 +1,66 @@
 import 'styled-components';
 
 declare module 'styled-components' {
-  export interface DefaultTheme {
+  export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+  export type FontSize = Size;
+
+  export type SupportColor = {
+    strong: string;
+    mid: string;
+    weak: string;
+  };
+
+  export interface DefaultTheme extends MainTheme {
     colors: {
-      primary: string;
-      primaryHover: string;
-      secondary: string;
-      secondaryHover: string;
-      ghost: string;
-      hover: string;
+      accent: {
+        primary: string;
+        secondary: string;
+      };
+      border: string;
+      background: {
+        primary: string;
+        secondary: string;
+      };
+      ink: {
+        primary: string;
+        secondary: string;
+      };
       white: string;
       black: string;
-      backdrop: string;
-      greys: {
-        lightest: string;
-        light: string;
-        dark: string;
+      hover: {
+        primary: string;
+        secondary: string;
+        tertiary: string;
       };
       support: {
-        blue: string;
-        cyan: string;
-        green: string;
-        orange: string;
-        ochre: string;
-        brown: string;
-        purple: string;
-        red: string;
-        pink: string;
+        blue: SupportColor;
+        cyan: SupportColor;
+        green: SupportColor;
+        orange: SupportColor;
+        ochre: SupportColor;
+        brown: SupportColor;
+        purple: SupportColor;
+        red: SupportColor;
+        pink: SupportColor;
       };
     };
+  }
+
+  export interface MainTheme {
     sizes: {
-      borderRadius: string;
+      borderRadius: Record<Size, string>;
+      shadow: Record<Size, string>;
+      borderWidth: {
+        normal: string;
+        inverted: string;
+      };
     };
-    ink: Record<string, string>;
     typography: {
       fonts: {
         stack: string;
       };
-      sizes: {
-        xs: string;
-        sm: string;
-        md: string;
-        lg: string;
-        xl: string;
-      };
+      sizes: Record<FontSize, string>;
     };
   }
 }

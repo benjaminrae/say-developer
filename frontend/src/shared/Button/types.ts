@@ -1,15 +1,19 @@
-export type IconFC = {}
+import { Size } from 'styled-components';
 
-xport type NativeButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+export type IconFC = {};
+
+export type NativeButtonProps = React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
 
 export type ButtonProps = NativeButtonProps & {
   variant?: ButtonVariant;
   leftIcon?: IconFC;
   rightIcon?: IconFC;
   size?: Size;
-}
+};
 
-export type ButtonStyledProps = ButtonProps
+export type ButtonStyledProps = ButtonProps;
 
-export type ButtonVariant = "primary" | "secondary" | "stroke" | "ghost";
-
+export type ButtonVariant = 'primary' | 'secondary' | 'stroke' | 'ghost';

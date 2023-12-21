@@ -1,10 +1,12 @@
-import {createGlobalStyle} from "styled-components";
-import { reset } from "./reset";
+import { createGlobalStyle } from 'styled-components';
+import { reset } from './reset';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: ${(props) => props.theme.typography.fonts.stack};
+    color: ${(props) => props.theme.colors.ink.primary};
+    background-color: ${(props) => props.theme.colors.background.primary};
   }
-`
+`;

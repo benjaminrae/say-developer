@@ -1,8 +1,5 @@
-import React, { memo } from 'react'
+import { memo } from 'react';
 
 export const Button = memo(() => {
-  return (
-    <div>Button</div>
-  )
-})
-
+  return <div>Button</div>;
+});

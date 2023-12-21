@@ -1,8 +1,7 @@
-import { css } from 'styled-components';
-import { FontSizes } from '../types';
+import { FontSize, css } from 'styled-components';
 
 export type FontSizesProps = {
-  size?: FontSizes;
+  size?: FontSize;
 };
 
 export const fontSizes = css<FontSizesProps>`
