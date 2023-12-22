@@ -16,9 +16,9 @@ func (s *Server) RegisterRoutes() http.Handler {
 	router.GET("/ping", func(c echo.Context) error {
 		return c.String(http.StatusOK, "OK")
 	})
-	router.GET("/auth/:provider/callback", AuthProviderCallbackHandler)
-	router.GET("/logout/:provider", LogoutProviderHandler)
-	router.GET("/auth/:provider", AuthHandler)
+	router.GET("/auth/:provider/callback", s.AuthProviderCallbackHandler)
+	router.GET("/logout/:provider", s.LogoutProviderHandler)
+	router.GET("/auth/:provider", s.AuthHandler)
 
 	return router
 }

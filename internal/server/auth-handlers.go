@@ -2,13 +2,19 @@ package server
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"net/http"
+	"time"
 
+	"github.com/benjaminrae/say-developer/internal/auth"
+	"github.com/benjaminrae/say-developer/internal/models"
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"github.com/markbates/goth/gothic"
 )
 
-func AuthProviderCallbackHandler(c echo.Context) error {
+func (s *Server) AuthProviderCallbackHandler(c echo.Context) error {
 	provider := c.Param("provider")
 
 	req := getProviderRequest(*c.Request(), provider)
@@ -19,10 +25,49 @@ func AuthProviderCallbackHandler(c echo.Context) error {
 		return c.String(http.StatusUnauthorized, "Failed to authorize")
 	}
 
-	return c.JSON(http.StatusOK, user)
+	fmt.Println(user)
+
+	loggedUser := &models.User{
+		UserId:   user.UserID,
+		Email:    user.Email,
+		Provider: user.Provider,
+	}
+
+	models.LoginUser(s.db.GetDb(), loggedUser)
+
+	sessionId := uuid.New().String()
+	sessionExpiration := time.Duration(auth.MaxAge) * time.Second
+
+	session := auth.Session{
+		UserId: user.UserID,
+	}
+
+	sessionData, err := json.Marshal(session)
+
+	// TODO: Cache session
+	fmt.Println(session)
+	fmt.Println(sessionData)
+	fmt.Println(sessionExpiration)
+
+	if err != nil {
+		fmt.Printf("Error creating session data: %v\n", err)
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	c.SetCookie(&http.Cookie{
+		Name:     "session",
+		Value:    sessionId,
+		Path:     "/",
+		MaxAge:   auth.MaxAge,
+		HttpOnly: true,
+		Secure:   auth.IsProd,
+	})
+
+	return c.Redirect(http.StatusFound, "http://localhost:5173")
 }
 
-func LogoutProviderHandler(c echo.Context) error {
+// TODO: Delete sessions
+func (s *Server) LogoutProviderHandler(c echo.Context) error {
 	provider := c.Param("provider")
 
 	req := getProviderRequest(*c.Request(), provider)
@@ -32,7 +77,8 @@ func LogoutProviderHandler(c echo.Context) error {
 	return c.Redirect(http.StatusTemporaryRedirect, "/")
 }
 
-func AuthHandler(c echo.Context) error {
+// TODO: improve this handler
+func (s *Server) AuthHandler(c echo.Context) error {
 	provider := c.Param("provider")
 
 	req := getProviderRequest(*c.Request(), provider)

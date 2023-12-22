@@ -10,3 +10,20 @@ run:
 
 run-cli:
 	go run cmd/cli/main.go
+
+run-test-db:
+	docker run -it --rm --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=postgres postgres
+
+vet:
+	go vet cmd/api/main.go
+	go vet cmd/cli/main.go
+
+fmt:
+	go fmt cmd/api/main.go
+	go fmt cmd/cli/main.go
+
+migrate-up:
+	go run cmd/cli/main.go migrate --up
+
+migrate-create:
+	migrate create -ext sql -dir migrations $(table)

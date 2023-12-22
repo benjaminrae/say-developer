@@ -12,7 +12,12 @@ import (
 	"github.com/markbates/goth/providers/google"
 )
 
+type Session struct {
+	UserId string
+}
+
 const (
+	// TODO: This should come from .env
 	key    = "key"
 	MaxAge = 86400 * 30
 	IsProd = false
@@ -39,8 +44,8 @@ func NewAuth() {
 	gothic.Store = store
 
 	goth.UseProviders(
-		google.New(googleClientId, googleClientSecret, "http://localhost:3000/auth/google"),
-		github.New(githubClientId, githubClientSecret, "http://localhost:3000/auth/google"),
+		google.New(googleClientId, googleClientSecret, "http://localhost:3000/auth/google/callback"),
+		github.New(githubClientId, githubClientSecret, "http://localhost:3000/auth/github/callback"),
 	)
 
 }

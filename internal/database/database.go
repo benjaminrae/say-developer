@@ -8,12 +8,16 @@ import (
 	"os"
 	"time"
 
+	"github.com/golang-migrate/migrate/v4"
+	"github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/jackc/pgx/v5/stdlib"
 	_ "github.com/joho/godotenv/autoload"
 )
 
 type Service interface {
 	Health() map[string]string
+	GetDb() *sql.DB
 }
 
 type service struct {
@@ -29,13 +33,39 @@ var (
 )
 
 func New() Service {
-	connStr := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", username, password, host, port, database)
-	db, err := sql.Open("pgx", connStr)
+	db := open()
+	s := &service{db: db}
+	return s
+}
+
+func MigrateUp() {
+	db := open()
+
+	defer db.Close()
+
+	migration := createMigration(db)
+
+	err := migration.Up()
+
 	if err != nil {
 		log.Fatal(err)
 	}
-	s := &service{db: db}
-	return s
+
+}
+
+func MigrateDown() {
+	db := open()
+
+	defer db.Close()
+
+	migration := createMigration(db)
+
+	err := migration.Down()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
 }
 
 func (s *service) Health() map[string]string {
@@ -50,4 +80,47 @@ func (s *service) Health() map[string]string {
 	return map[string]string{
 		"message": "It's healthy",
 	}
+}
+
+func getConnectionString() string {
+	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", username, password, host, port, database)
+}
+
+func open() *sql.DB {
+	connStr := getConnectionString()
+
+	log.Print("Opening DB connection")
+
+	db, err := sql.Open("pgx", connStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Print("DB connection open")
+
+	return db
+}
+
+func createMigration(db *sql.DB) *migrate.Migrate {
+
+	driver, err := postgres.WithInstance(db, &postgres.Config{})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	migration, err := migrate.NewWithDatabaseInstance(
+		"file://migrations",
+		"postgres",
+		driver,
+	)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return migration
+}
+
+func (s *service) GetDb() *sql.DB {
+	return s.db
 }

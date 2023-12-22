@@ -6,6 +6,7 @@ package cli
 import (
 	"fmt"
 
+	"github.com/benjaminrae/say-developer/internal/database"
 	"github.com/spf13/cobra"
 )
 
@@ -21,11 +22,27 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("migrate called")
+
+		fmt.Println(args)
+
+		fmt.Println(Up)
+		if Up == true {
+			database.MigrateUp()
+		}
 	},
 }
 
+var (
+	Up   bool
+	Down bool
+)
+
 func init() {
 	rootCmd.AddCommand(migrateCmd)
+
+	migrateCmd.Flags().BoolVar(&Up, "up", false, "Migrate UP")
+	migrateCmd.Flags().BoolVar(&Down, "down", false, "Migrate DOWN")
+	migrateCmd.MarkFlagsMutuallyExclusive("up", "down")
 
 	// Here you will define your flags and configuration settings.
 
