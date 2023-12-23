@@ -40,18 +40,23 @@ func (s *Server) AuthProviderCallbackHandler(c echo.Context) error {
 
 	session := auth.Session{
 		UserId: user.UserID,
+		User:   user,
 	}
 
 	sessionData, err := json.Marshal(session)
 
-	// TODO: Cache session
-	fmt.Println(session)
-	fmt.Println(sessionData)
-	fmt.Println(sessionExpiration)
-
 	if err != nil {
 		fmt.Printf("Error creating session data: %v\n", err)
 		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	redis := s.redis.GetClient()
+
+	err = redis.Set(context.Background(), sessionId, sessionData, sessionExpiration).Err()
+
+	if err != nil {
+		fmt.Printf("Error caching sessions: %v\n", err)
+		c.String(http.StatusInternalServerError, err.Error())
 	}
 
 	c.SetCookie(&http.Cookie{
@@ -66,13 +71,26 @@ func (s *Server) AuthProviderCallbackHandler(c echo.Context) error {
 	return c.Redirect(http.StatusFound, "http://localhost:5173")
 }
 
-// TODO: Delete sessions
 func (s *Server) LogoutProviderHandler(c echo.Context) error {
 	provider := c.Param("provider")
+	session, err := c.Cookie("session")
+
+	if err != nil {
+		fmt.Printf("Session cookie not found: %v\n", err)
+	}
 
 	req := getProviderRequest(*c.Request(), provider)
 
 	gothic.Logout(c.Response().Writer, req)
+
+	redis := s.redis.GetClient()
+
+	redis.Del(context.Background(), session.Value)
+	session.MaxAge = -1
+
+	c.SetCookie(
+		session,
+	)
 
 	return c.Redirect(http.StatusTemporaryRedirect, "/")
 }
@@ -89,6 +107,25 @@ func (s *Server) AuthHandler(c echo.Context) error {
 		gothic.BeginAuthHandler(c.Response().Writer, req)
 		return nil
 	}
+}
+
+func (s *Server) GetSession(c echo.Context) error {
+	session, err := c.Cookie("session")
+
+	if err != nil {
+		fmt.Printf("Session cookie not found: %v\n", err)
+		return c.NoContent(http.StatusOK)
+	}
+
+	redis := s.redis.GetClient()
+
+	sessionData, err := redis.Get(context.Background(), session.Value).Result()
+
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, sessionData)
 }
 
 func getProviderRequest(r http.Request, provider string) *http.Request {

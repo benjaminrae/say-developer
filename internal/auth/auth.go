@@ -14,6 +14,7 @@ import (
 
 type Session struct {
 	UserId string
+	User   interface{}
 }
 
 const (

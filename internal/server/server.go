@@ -9,18 +9,21 @@ import (
 
 	"github.com/benjaminrae/say-developer/internal/auth"
 	"github.com/benjaminrae/say-developer/internal/database"
+	"github.com/benjaminrae/say-developer/internal/redis"
 )
 
 type Server struct {
-	port int
-	db   database.Service
+	port  int
+	db    database.Service
+	redis redis.Service
 }
 
 func NewServer() *http.Server {
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
 	NewServer := &Server{
-		port: port,
-		db:   database.New(),
+		port:  port,
+		db:    database.New(),
+		redis: redis.New(),
 	}
 
 	auth.NewAuth()
