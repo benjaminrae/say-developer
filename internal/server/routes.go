@@ -3,10 +3,23 @@ package server
 import (
 	"net/http"
 
+	_ "github.com/benjaminrae/say-developer/docs"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/swaggo/echo-swagger"
 )
 
+// @title Say Developer
+// @version 1.0
+// @description Say Developer API
+
+// @contact.name Benjamin Rae
+// @contact.email benjaminrae93@gmail.com
+
+// @license.name MIT
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost:3000
 func (s *Server) RegisterRoutes() http.Handler {
 	router := echo.New()
 	router.Use(middleware.Logger())
@@ -17,9 +30,10 @@ func (s *Server) RegisterRoutes() http.Handler {
 	}))
 	//	router.Renderer = CreateTemplateRenderer()
 
-	router.GET("/ping", func(c echo.Context) error {
-		return c.String(http.StatusOK, "OK")
-	})
+	router.GET("/swagger/*", echoSwagger.WrapHandler)
+
+	router.GET("/health", s.HealthHandler)
+
 	router.GET("/auth/:provider/callback", s.AuthProviderCallbackHandler)
 	router.GET("/logout/:provider", s.LogoutProviderHandler)
 	router.GET("/auth/:provider", s.AuthHandler)

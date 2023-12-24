@@ -1,6 +1,9 @@
 package redis
 
 import (
+	"context"
+	"fmt"
+	"log"
 	"os"
 
 	"github.com/go-redis/redis/v8"
@@ -16,6 +19,7 @@ var (
 
 type Service interface {
 	GetClient() *redis.Client
+	Health() (string, error)
 }
 
 type service struct {
@@ -36,4 +40,19 @@ func New() Service {
 
 func (s *service) GetClient() *redis.Client {
 	return s.redis
+}
+
+func (s *service) Health() (string, error) {
+
+	status, err := s.redis.Ping(context.Background()).Result()
+
+	if err != nil {
+		log.Printf("redis down: %v\n", err)
+		status := fmt.Sprintf("Unhealthy: %v", err)
+		return status, err
+	}
+
+	log.Printf("Redis status: %s\n", status)
+
+	return "Healthy", nil
 }

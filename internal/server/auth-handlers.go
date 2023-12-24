@@ -14,6 +14,13 @@ import (
 	"github.com/markbates/goth/gothic"
 )
 
+// Auth Provider Callback
+//
+// @Param string path
+// @Success 302
+// @Failure 401 string
+// @Failure 500 string
+// @Router /auth/{provider}/callback [get]
 func (s *Server) AuthProviderCallbackHandler(c echo.Context) error {
 	provider := c.Param("provider")
 
@@ -71,6 +78,11 @@ func (s *Server) AuthProviderCallbackHandler(c echo.Context) error {
 	return c.Redirect(http.StatusFound, "http://localhost:5173")
 }
 
+// Logout Provider
+//
+// @Param string path
+// @Success 307
+// @Router /logout/{provider} [get]
 func (s *Server) LogoutProviderHandler(c echo.Context) error {
 	provider := c.Param("provider")
 	session, err := c.Cookie("session")

@@ -27,3 +27,6 @@ migrate-up:
 
 migrate-create:
 	migrate create -ext sql -dir migrations $(table)
+
+swagger-docs:
+	swag init -g internal/server/routes.go

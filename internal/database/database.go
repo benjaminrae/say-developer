@@ -16,7 +16,7 @@ import (
 )
 
 type Service interface {
-	Health() map[string]string
+	Health() (string, error)
 	GetDb() *sql.DB
 }
 
@@ -68,18 +68,18 @@ func MigrateDown() {
 
 }
 
-func (s *service) Health() map[string]string {
+func (s *service) Health() (string, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 
 	err := s.db.PingContext(ctx)
 	if err != nil {
-		log.Fatalf(fmt.Sprintf("db down: %v", err))
+		log.Println(fmt.Sprintf("db down: %v", err))
+		status := fmt.Sprintf("Unhealthy: %v", err)
+		return status, err
 	}
 
-	return map[string]string{
-		"message": "It's healthy",
-	}
+	return "Healthy", nil
 }
 
 func getConnectionString() string {
