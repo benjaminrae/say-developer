@@ -137,7 +137,7 @@ func (s *Server) GetSession(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, sessionData)
+	return c.JSONPretty(http.StatusOK, sessionData, "  ")
 }
 
 func getProviderRequest(r http.Request, provider string) *http.Request {
