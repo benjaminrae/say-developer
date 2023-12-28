@@ -1,5 +1,6 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from './components/ThemeProvider/context';
+import { AuthContext } from './components/AuthProvider/context';
 
 const App = () => {
   const handleGoogleLogin = () => {
@@ -14,15 +15,7 @@ const App = () => {
 
   const { theme, toggleTheme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    fetch("http://localhost:3000/session", {
-      credentials: "include"
-    }).then((response) => {
-      response.json().then(data => {
-        console.log(data)
-      })
-    })
-  }, [])
+  const {user} = useContext(AuthContext);
 
   return (
     <>
@@ -32,6 +25,7 @@ const App = () => {
       <span>Current theme: {`${theme}`}</span>
       <button onClick={toggleTheme}>Toggle Theme</button>
       <button onClick={handleLogout}>Logout</button>
+      <span>current user : {JSON.stringify(user)}</span>
     </>
   );
 };

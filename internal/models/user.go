@@ -7,10 +7,10 @@ import (
 )
 
 type User struct {
-	UserId    string
-	Provider  string
-	Email     string
-	LastLogin time.Time
+	UserId    string    `json:"userId"`
+	Provider  string    `json:"provider"`
+	Email     string    `json:"email"`
+	LastLogin time.Time `json:"lastLogin"`
 }
 
 func CreateUser(db *sql.DB, user *User) error {

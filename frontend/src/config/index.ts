@@ -10,8 +10,6 @@ const processEnv = {
   SAY_DEVELOPER_API_URL: import.meta.env.VITE_SAY_DEVELOPER_API_URL,
 };
 
-console.log(import.meta.env.NODE_ENV);
-
 const parsed = environment.safeParse(processEnv);
 
 if (!parsed.success) {

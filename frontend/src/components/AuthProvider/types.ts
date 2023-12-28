@@ -1,3 +1,5 @@
+import { User } from "../../domains/sessions/types"
+
 export type AuthStore = {
   user?: User | null;
   isLoading: boolean;
@@ -6,11 +8,3 @@ export type AuthStore = {
   error?: Error;
 };
 
-export type User = {
-  provider: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  avatarUrl: string;
-  nickName: string;
-};

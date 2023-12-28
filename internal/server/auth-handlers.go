@@ -47,7 +47,24 @@ func (s *Server) AuthProviderCallbackHandler(c echo.Context) error {
 
 	session := auth.Session{
 		UserId: user.UserID,
-		User:   user,
+		User: auth.SessionUser{
+			UserID:            user.UserID,
+			RawData:           user.RawData,
+			Provider:          user.Provider,
+			Email:             user.Email,
+			Name:              user.Name,
+			FirstName:         user.FirstName,
+			LastName:          user.LastName,
+			NickName:          user.NickName,
+			Description:       user.Description,
+			AvatarURL:         user.AvatarURL,
+			Location:          user.Location,
+			AccessToken:       user.AccessToken,
+			AccessTokenSecret: user.AccessTokenSecret,
+			RefreshToken:      user.RefreshToken,
+			ExpiresAt:         user.ExpiresAt,
+			IDToken:           user.IDToken,
+		},
 	}
 
 	sessionData, err := json.Marshal(session)
@@ -131,7 +148,11 @@ func (s *Server) GetSession(c echo.Context) error {
 
 	redis := s.redis.GetClient()
 
-	sessionData, err := redis.Get(context.Background(), session.Value).Result()
+	cachedSession, err := redis.Get(context.Background(), session.Value).Result()
+
+	var sessionData auth.Session
+
+	json.Unmarshal([]byte(cachedSession), &sessionData)
 
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
