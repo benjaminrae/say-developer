@@ -15,6 +15,11 @@ describe('usePreferredTheme', () => {
   it('should return the stored theme if a theme is stored', () => {
     const storedTheme = 'dark';
     vi.mocked(getSavedUserTheme).mockReturnValueOnce(storedTheme);
+    window.matchMedia = vi.fn().mockImplementation(() => ({
+      matches: false,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }));
 
     const {
       result: { current },
