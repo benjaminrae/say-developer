@@ -1,4 +1,5 @@
 import { Size } from 'styled-components';
+import { Variant } from '../../styles/types';
 import { Icon } from '../Icons/types';
 
 
@@ -8,7 +9,7 @@ export type NativeButtonProps = React.DetailedHTMLProps<
 >;
 
 export type ButtonProps = NativeButtonProps & {
-  variant?: ButtonVariant;
+  variant?: Variant;
   leftIcon?: Icon;
   rightIcon?: Icon;
   size?: Size;
@@ -16,4 +17,3 @@ export type ButtonProps = NativeButtonProps & {
 
 export type ButtonStyledProps = ButtonProps;
 
-export type ButtonVariant = 'primary' | 'secondary' | 'stroke' | 'ghost';
