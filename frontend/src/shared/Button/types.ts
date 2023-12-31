@@ -1,6 +1,6 @@
 import { Size } from 'styled-components';
+import { Icon } from '../Icons/types';
 
-export type IconFC = {};
 
 export type NativeButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -9,8 +9,8 @@ export type NativeButtonProps = React.DetailedHTMLProps<
 
 export type ButtonProps = NativeButtonProps & {
   variant?: ButtonVariant;
-  leftIcon?: IconFC;
-  rightIcon?: IconFC;
+  leftIcon?: Icon;
+  rightIcon?: Icon;
   size?: Size;
 };
 

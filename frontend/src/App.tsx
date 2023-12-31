@@ -1,6 +1,7 @@
 import { useContext } from 'react';
-import { ThemeContext } from './components/ThemeProvider/context';
 import { AuthContext } from './components/AuthProvider/context';
+import { ThemeContext } from './components/ThemeProvider/context';
+import { Button } from './shared/Button';
 
 const App = () => {
   const handleGoogleLogin = () => {
@@ -20,11 +21,11 @@ const App = () => {
   return (
     <>
       <h1>Say Developer</h1>
-      <button onClick={handleGoogleLogin}>Login With Google</button>
-      <button onClick={handleGithubLogin}>Login With Github</button>
+      <Button onClick={handleGoogleLogin}>Login With Google</Button>
+      <Button onClick={handleGithubLogin}>Login With Github</Button>
       <span>Current theme: {`${theme}`}</span>
-      <button onClick={toggleTheme}>Toggle Theme</button>
-      <button onClick={handleLogout}>Logout</button>
+      <Button onClick={toggleTheme}>Toggle Theme</Button>
+      <Button onClick={handleLogout}>Logout</Button>
       <span>current user : {JSON.stringify(user)}</span>
     </>
   );
