@@ -6,7 +6,7 @@ import { ButtonStyledProps } from './types';
 const buttonStyle = css`
   cursor: pointer;
   font-weight: 600;
-  
+
   outline: none;
 
   :disabled {
@@ -16,7 +16,7 @@ const buttonStyle = css`
 `;
 
 const buttonSizes = css<ButtonStyledProps>`
-  border-radius: ${({ size, theme: { sizes } }) => sizes.borderRadius[size ?? "md"]};
+  border-radius: ${({ size, theme: { sizes } }) => sizes.borderRadius[size ?? 'md']};
 
   ${paddings}
 `;
@@ -24,31 +24,30 @@ const buttonSizes = css<ButtonStyledProps>`
 const buttonColors = css<ButtonStyledProps>`
   border: 1px solid;
 
-
   ${(props) => {
     switch (props.variant) {
-      case "primary":
+      case 'primary':
         return {
           color: props.theme.colors.white,
-          backgroundColor: props.theme.colors.accent.primary,  
-          borderColor: props.theme.colors.accent.primary
+          backgroundColor: props.theme.colors.accent.primary,
+          borderColor: props.theme.colors.accent.primary,
         };
-      case "secondary":
+      case 'secondary':
         return {
           color: props.theme.colors.white,
           backgroundColor: props.theme.colors.accent.secondary,
           borderColor: props.theme.colors.accent.secondary,
         };
-      case "ghost":
+      case 'ghost':
         return {
           color: props.theme.colors.ink.secondary,
-          backgroundColor: "transparent",
-          borderColor: "transparent",
+          backgroundColor: 'transparent',
+          borderColor: 'transparent',
         };
-      case "stroke":
+      case 'stroke':
         return {
           color: props.theme.colors.ink.primary,
-          backgroundColor: "transparent",
+          backgroundColor: 'transparent',
           border: props.theme.colors.ink.secondary,
         };
       default:
@@ -59,21 +58,19 @@ const buttonColors = css<ButtonStyledProps>`
   &:hover {
     ${(props) => {
       switch (props.variant) {
-        case "primary":
-          return {
-            
-          };
-        case "secondary":
+        case 'primary':
+          return {};
+        case 'secondary':
           return {
             backgroundColor: props.theme.colors.hover.secondary,
           };
-        case "ghost":
+        case 'ghost':
           return {
             color: props.theme.colors.black,
             backgroundColor: props.theme.colors.hover.primary,
             border: `1px solid transparent`,
           };
-        case "stroke":
+        case 'stroke':
           return {
             backgroundColor: props.theme.colors.hover,
             border: `1px solid ${props.theme.colors.black}`,
@@ -94,4 +91,3 @@ export const ButtonStyled = styled.button<ButtonStyledProps>`
   ${buttonColors}
   ${fontSizes}
 `;
-

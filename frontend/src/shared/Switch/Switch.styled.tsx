@@ -1,22 +1,21 @@
-import styled, { Size } from "styled-components";
-import { SwitchStyledProps } from "./types";
+import styled, { Size } from 'styled-components';
+import { SwitchStyledProps } from './types';
 
-export const SwitchStyled = styled.div<SwitchStyledProps>`
-
-`
+export const SwitchStyled = styled.div<SwitchStyledProps>``;
 
 export const SwitchInput = styled.input`
   display: hidden;
   height: 0;
   width: 0;
 
-  &:checked + label::before{
+  &:checked + label::before {
     margin-left: 50%;
   }
-`
+`;
 
-export const SwitchLabel = styled.label<{size: Size; isOn: boolean}>`
-  background-color: ${(props) => props.isOn ? props.theme.colors.accent.primary : props.theme.colors.border};
+export const SwitchLabel = styled.label<{ size: Size; isOn: boolean }>`
+  background-color: ${(props) =>
+    props.isOn ? props.theme.colors.accent.primary : props.theme.colors.border};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -25,26 +24,27 @@ export const SwitchLabel = styled.label<{size: Size; isOn: boolean}>`
   position: relative;
   transition: background-color .2s;
 
-  ${props => {
+  ${(props) => {
     switch (props.size) {
-      case "xs":
-      case "sm":
+      case 'xs':
+      case 'sm':
         return {
-          height: "16px",
-          width: "28px"
-        }
-      case "md":
+          height: '16px',
+          width: '28px',
+        };
+      case 'md':
         return {
-          height: "24px",
-          width: "44px",
-        }
-      case "lg":
-      case "xl": 
+          height: '24px',
+          width: '44px',
+        };
+      case 'lg':
+      case 'xl':
         return {
-          width: "60px",
-          height: "32px",
-        }
-    }}}
+          width: '60px',
+          height: '32px',
+        };
+    }
+  }}
 
     &::before {
       content: "";
@@ -70,16 +70,16 @@ export const SwitchLabel = styled.label<{size: Size; isOn: boolean}>`
         transition: 'all 0.2s ease',
 
     } 
-`
+`;
 
 export const SwitchInner = styled.span`
-    margin-left: -100%;
-    display: inline-block;
-`
+  margin-left: -100%;
+  display: inline-block;
+`;
 
-export const SwitchButton = styled.span<{isOn: boolean}>`
-    // height: 90%;
-    // background-color: ${props => props.theme.colors.white};
-    // aspect-ratio: 1;
-    // border-radius: 50% */;
-`
+export const SwitchButton = styled.span<{ isOn: boolean }>`
+  // height: 90%;
+  // background-color: ${(props) => props.theme.colors.white};
+  // aspect-ratio: 1;
+  // border-radius: 50% */;
+`;

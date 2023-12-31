@@ -16,7 +16,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
       setThemeState(theme);
       saveUserTheme(theme);
     },
-    [setThemeState]
+    [setThemeState],
   );
 
   const toggleTheme = useCallback(() => {

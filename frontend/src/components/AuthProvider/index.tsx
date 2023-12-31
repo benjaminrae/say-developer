@@ -12,8 +12,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const value = useMemo<AuthStore>(() => {
     const user: User | undefined = isSuccess ? data?.user : undefined;
 
-    console.log(data?.user)
-    console.log(isSuccess)
+    console.log(data?.user);
+    console.log(isSuccess);
 
     return {
       user: user,

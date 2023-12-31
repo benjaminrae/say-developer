@@ -19,5 +19,4 @@ export type User = {
   expiresAt: string;
   idToken: string;
   rawData: Record<string, unknown>;
-}
-
+};

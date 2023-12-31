@@ -38,6 +38,6 @@ describe('usePreferredTheme', () => {
 
       expect(current).toBe(theme);
       expect(saveUserTheme).toHaveBeenCalledWith(theme);
-    }
+    },
   );
 });

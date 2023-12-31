@@ -1,4 +1,4 @@
-import { User } from "../../domains/sessions/types"
+import { User } from '../../domains/sessions/types';
 
 export type AuthStore = {
   user?: User | null;
@@ -7,4 +7,3 @@ export type AuthStore = {
   isError: boolean;
   error?: Error;
 };
-
