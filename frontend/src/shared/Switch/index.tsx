@@ -5,7 +5,7 @@ export const Switch = ({ id, isOn, handleChange, size }: SwitchProps) => {
   return (
     <SwitchStyled>
       <SwitchInput type="checkbox" onChange={handleChange} checked={isOn} id={id} />
-      <SwitchLabel htmlFor={id} size={size ?? 'md'}>
+      <SwitchLabel htmlFor={id} size={size ?? 'md'} isOn={isOn}>
         <SwitchInner />
         <SwitchButton />
       </SwitchLabel>

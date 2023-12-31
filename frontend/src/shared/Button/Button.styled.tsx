@@ -61,22 +61,20 @@ const buttonColors = css<ButtonStyledProps>`
         case 'primary':
           return {};
         case 'secondary':
-          return {
-            backgroundColor: props.theme.colors.hover.secondary,
-          };
+          return `
+            background-color: ${props.theme.colors.hover.secondary};
+          `;
         case 'ghost':
-          return {
-            color: props.theme.colors.black,
-            backgroundColor: props.theme.colors.hover.primary,
-            border: `1px solid transparent`,
-          };
+          return `
+            color: ${props.theme.colors.black};
+            background-color: ${props.theme.colors.hover.primary};
+            border: 1px solid transparent;
+          `;
         case 'stroke':
-          return {
-            backgroundColor: props.theme.colors.hover,
-            border: `1px solid ${props.theme.colors.black}`,
-          };
-        default:
-          return props.theme.colors.white;
+          return `
+            backgroun-color: ${props.theme.colors.hover};
+            border: 1px solid ${props.theme.colors.black};
+          `;
       }
     }};
   }

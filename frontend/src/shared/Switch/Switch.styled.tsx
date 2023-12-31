@@ -77,7 +77,7 @@ export const SwitchInner = styled.span`
   display: inline-block;
 `;
 
-export const SwitchButton = styled.span<{ isOn: boolean }>`
+export const SwitchButton = styled.span`
   // height: 90%;
   // background-color: ${(props) => props.theme.colors.white};
   // aspect-ratio: 1;
