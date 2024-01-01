@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler, ReactNode } from 'react';
 import { Size } from 'styled-components';
 import { Variant } from '../../styles/types';
 
@@ -11,6 +11,8 @@ export type SwitchProps = NativeDivProps & {
   variant?: Variant;
   size?: Size;
   isOn: boolean;
+  onChildren?: ReactNode;
+  offChildren?: ReactNode;
   handleChange: ChangeEventHandler<HTMLInputElement>;
 };
 

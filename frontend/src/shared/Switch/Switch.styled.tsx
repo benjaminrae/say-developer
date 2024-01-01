@@ -1,4 +1,4 @@
-import styled, { Size } from 'styled-components';
+import styled, { Size, css } from 'styled-components';
 import { SwitchStyledProps } from './types';
 
 export const SwitchStyled = styled.div<SwitchStyledProps>``;
@@ -13,9 +13,9 @@ export const SwitchInput = styled.input`
   }
 `;
 
-export const SwitchLabel = styled.label<{ size: Size; isOn: boolean }>`
+export const SwitchLabel = styled.label<{ size: Size; $isOn: boolean }>`
   background-color: ${(props) =>
-    props.isOn ? props.theme.colors.accent.primary : props.theme.colors.border};
+    props.$isOn ? props.theme.colors.accent.primary : props.theme.colors.border};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -72,9 +72,22 @@ export const SwitchLabel = styled.label<{ size: Size; isOn: boolean }>`
     } 
 `;
 
-export const SwitchInner = styled.span`
-  margin-left: -100%;
-  display: inline-block;
+const switchChildWrapper = css`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+`;
+
+export const SwitchOn = styled.span`
+  ${switchChildWrapper}
+`;
+
+export const SwitchOff = styled.span`
+  ${switchChildWrapper}
+  right: 0;
 `;
 
 export const SwitchButton = styled.span`

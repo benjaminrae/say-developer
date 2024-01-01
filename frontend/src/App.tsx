@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { ThemeContext } from './components/ThemeProvider/context';
+import { ThemeToggle } from './components/ThemeToggle';
 import { Button } from './shared/Button';
+import { Sun } from './shared/Icons/Sun';
 import { Switch } from './shared/Switch';
 
 const App = () => {
@@ -32,7 +34,9 @@ const App = () => {
       <Button onClick={handleLogout} variant="stroke">
         Logout
       </Button>
-      <Switch id="theme" isOn={theme === 'dark'} handleChange={toggleTheme} size="md" />
+      <ThemeToggle />
+      <Switch handleChange={toggleTheme} isOn={true} />
+      <Sun />
     </>
   );
 };
