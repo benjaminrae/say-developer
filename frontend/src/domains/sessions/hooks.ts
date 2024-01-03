@@ -8,6 +8,20 @@ export const useSession = (options?: UseQueryOptions<Session | undefined>) => {
   return useQuery<Session | undefined>(
     [QUERY_KEYS.GET_SESSION],
     () => getCurrentSession(),
-    options,
+    options
   );
+};
+
+export const usAuthRedirect = () => {
+  const loginWithGoogle = () => {
+    window.location.href = 'http://localhost:3000/auth/google';
+  };
+  const loginWithGithub = () => {
+    window.location.href = 'http://localhost:3000/auth/github';
+  };
+  const logoutProvider = (provider: string) => {
+    window.location.href = `http://localhost:3000/logout/${provider}`;
+  };
+
+  return { loginWithGoogle, loginWithGithub, logoutProvider } as const;
 };

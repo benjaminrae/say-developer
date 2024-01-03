@@ -4,7 +4,7 @@ import { SwitchStyledProps } from './types';
 export const SwitchStyled = styled.div<SwitchStyledProps>``;
 
 export const SwitchInput = styled.input`
-  display: hidden;
+  display: none;
   height: 0;
   width: 0;
 
