@@ -1,4 +1,5 @@
 import { Page } from './components/Page';
+import { VoiceRecorder } from './components/VoiceRecorder';
 import { Button } from './shared/Button';
 
 const App = () => {
@@ -24,6 +25,8 @@ const App = () => {
         <Button onClick={handleLogout} variant="stroke">
           Logout
         </Button>
+
+        <VoiceRecorder />
       </Page>
     </>
   );
