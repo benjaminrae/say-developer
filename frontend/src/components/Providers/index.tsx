@@ -1,4 +1,5 @@
 import { PropsWithChildren } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from '../../libs/react-query';
 import { GlobalStyle } from '../../styles/GlobalStyle';
@@ -9,13 +10,13 @@ export type ProvidersProps = PropsWithChildren;
 
 export const Providers = ({ children }: ProvidersProps) => {
   return (
-    <div>
+    <HelmetProvider>
       <ThemeProvider>
         <GlobalStyle />
         <QueryClientProvider client={queryClient}>
           <AuthProvider>{children}</AuthProvider>
         </QueryClientProvider>
       </ThemeProvider>
-    </div>
+    </HelmetProvider>
   );
 };

@@ -1,11 +1,11 @@
-import { Header } from '../Header';
+import { PageTitle } from '../PageTitle';
 import { PageStyled } from './Page.styled';
 import { PageProps } from './types';
 
-export const Page = ({ children }: PageProps) => {
+export const Page = ({ children, pageTitle }: PageProps) => {
   return (
     <PageStyled>
-      <Header />
+      <PageTitle title={pageTitle} />
       {children}
     </PageStyled>
   );
