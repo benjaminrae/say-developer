@@ -4,6 +4,7 @@ import { Size } from 'styled-components';
 export type IconProps = {
   size?: Size;
   color?: string;
+  className?: string;
 };
 
 export type Icon =

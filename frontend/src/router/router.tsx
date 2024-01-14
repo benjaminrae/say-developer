@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { MainLayout } from '../components/MainLayout';
 import { HomePage } from '../pages/HomePage';
+import { SearchResultsPage } from '../pages/SearchResults';
 
 export const router = createBrowserRouter([
   {
@@ -9,6 +10,10 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <HomePage />,
+      },
+      {
+        path: '/search/:term',
+        element: <SearchResultsPage />,
       },
     ],
   },

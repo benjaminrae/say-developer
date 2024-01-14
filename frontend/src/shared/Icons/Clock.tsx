@@ -1,12 +1,13 @@
 import { useIconClass, useIconSize } from './hooks';
 import { IconProps } from './types';
 
-export const Search = ({ size, color, className }: IconProps) => {
+export const Clock = ({ className, color, size }: IconProps) => {
+  const finalClassName = useIconClass(className);
   const iconSize = useIconSize(size ?? 'md');
-  const fullClassName = useIconClass(className);
 
   return (
     <svg
+      className={finalClassName}
       width={iconSize}
       height={iconSize}
       strokeWidth="1.5"
@@ -14,10 +15,10 @@ export const Search = ({ size, color, className }: IconProps) => {
       xmlns="http://www.w3.org/2000/svg"
       color={color}
       viewBox="0 0 24 24"
-      className={fullClassName}
     >
+      <path d="M12 6v6h6" stroke={color} strokeLinecap="round" strokeLinejoin="round" />
       <path
-        d="m17 17 4 4M3 11a8 8 0 1 0 16 0 8 8 0 0 0-16 0Z"
+        d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"
         stroke={color}
         strokeLinecap="round"
         strokeLinejoin="round"

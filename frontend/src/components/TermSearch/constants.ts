@@ -1,0 +1,3 @@
+export const RECENT_SEARCHES_STORAGE_KEY = 'sd_RECENT_SEARCHES';
+
+export const MAX_RECENT_SEARCHES = 10;

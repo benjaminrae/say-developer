@@ -12,7 +12,7 @@ export const useSession = (options?: UseQueryOptions<Session | undefined>) => {
   );
 };
 
-export const usAuthRedirect = () => {
+export const useAuthRedirect = () => {
   const loginWithGoogle = () => {
     window.location.href = 'http://localhost:3000/auth/google';
   };

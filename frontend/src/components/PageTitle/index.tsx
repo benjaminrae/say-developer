@@ -5,7 +5,7 @@ export type PageTitleProps = {
 };
 
 export const PageTitle = ({ title }: PageTitleProps) => {
-  const base = 'Say Developer';
+  const base = 'Say.dev';
 
   return (
     <Helmet>

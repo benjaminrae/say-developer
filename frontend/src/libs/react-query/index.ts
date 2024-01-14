@@ -11,6 +11,10 @@ export const queryClient = new QueryClient({
 
 export const QUERY_KEYS = {
   GET_SESSION: 'GET_SESSION',
+
+  SEARCH_TERMS: 'SEARCH_TERMS',
+  GET_TERMS: 'GET_TERMS',
+  CREATE_TERM: 'CREATE_TERM',
 } as const;
 
 const queryKeyValues = Object.values(QUERY_KEYS);
