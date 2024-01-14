@@ -49,7 +49,7 @@ export const useRecentSearches = (currentSearch?: string) => {
 
 export const useCombineSearches = (
   recentSearches: string[],
-  searches: Term[]
+  searches: Term[],
 ): TermSearchSuggestion[] => {
   const combinedSearches: TermSearchSuggestion[] = [
     ...recentSearches.map((term) => ({ term, isRecent: true })),
@@ -57,7 +57,7 @@ export const useCombineSearches = (
   ];
 
   const uniqueSearches = combinedSearches.filter(
-    (search, index, searches) => index === searches.findIndex((s) => s.term === search.term)
+    (search, index, searches) => index === searches.findIndex((s) => s.term === search.term),
   );
 
   return uniqueSearches;

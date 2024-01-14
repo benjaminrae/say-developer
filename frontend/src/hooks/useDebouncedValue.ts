@@ -6,7 +6,7 @@ export const useDebouncedValue = <Value>(defaultValue: Value, timeout = 400) => 
 
   const debounceSetValue = useMemo(
     () => debounce((newValue: Value) => setValue(newValue), timeout),
-    []
+    [timeout]
   );
 
   return [value, debounceSetValue] as const;

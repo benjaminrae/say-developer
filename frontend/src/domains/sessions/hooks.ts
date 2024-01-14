@@ -8,7 +8,7 @@ export const useSession = (options?: UseQueryOptions<Session | undefined>) => {
   return useQuery<Session | undefined>(
     [QUERY_KEYS.GET_SESSION],
     () => getCurrentSession(),
-    options
+    options,
   );
 };
 
