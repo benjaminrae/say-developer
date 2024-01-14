@@ -164,3 +164,29 @@ func (s *Server) GetSession(c echo.Context) error {
 func getProviderRequest(r http.Request, provider string) *http.Request {
 	return r.WithContext(context.WithValue(context.Background(), "provider", provider))
 }
+
+func (s *Server) AuthCurrentUser(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		authCookie, err := c.Cookie("session")
+
+		if err != nil {
+			return next(c)
+		}
+
+	redis:= s.redis.GetClient()
+
+	cachedSession, err := redis.Get(context.Background(), authCookie.Value).Result()
+
+	var sessionData auth.Session
+
+	json.Unmarshal([]byte(cachedSession), &sessionData)
+
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	c.Set("session", sessionData)
+	
+	return next(c)
+	}
+}

@@ -26,7 +26,7 @@ migrate-up:
 	go run cmd/cli/main.go migrate --up
 
 migrate-create:
-	migrate create -ext sql -dir migrations $(table)
+	migrate create -ext sql -dir migrations -seq $(table)
 
 swagger-docs:
 	swag init -g internal/server/routes.go

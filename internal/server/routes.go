@@ -6,7 +6,7 @@ import (
 	_ "github.com/benjaminrae/say-developer/docs"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/swaggo/echo-swagger"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 // @title Say Developer
@@ -34,10 +34,15 @@ func (s *Server) RegisterRoutes() http.Handler {
 
 	router.GET("/health", s.HealthHandler)
 
+	router.Use(s.AuthCurrentUser)
+
 	router.GET("/auth/:provider/callback", s.AuthProviderCallbackHandler)
 	router.GET("/logout/:provider", s.LogoutProviderHandler)
 	router.GET("/auth/:provider", s.AuthHandler)
 	router.GET("/session", s.GetSession)
+
+	router.POST("/terms", s.CreateTermHandler)
+	router.GET("/terms", s.SearchTermHandler)
 
 	return router
 }
