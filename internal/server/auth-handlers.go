@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/benjaminrae/say-developer/internal/auth"
@@ -92,7 +93,9 @@ func (s *Server) AuthProviderCallbackHandler(c echo.Context) error {
 		Secure:   auth.IsProd,
 	})
 
-	return c.Redirect(http.StatusFound, "http://localhost:5173")
+	client := os.Getenv("CLIENT_URL")
+
+	return c.Redirect(http.StatusFound, client)
 }
 
 // Logout Provider
@@ -173,20 +176,20 @@ func (s *Server) AuthCurrentUser(next echo.HandlerFunc) echo.HandlerFunc {
 			return next(c)
 		}
 
-	redis:= s.redis.GetClient()
+		redis := s.redis.GetClient()
 
-	cachedSession, err := redis.Get(context.Background(), authCookie.Value).Result()
+		cachedSession, err := redis.Get(context.Background(), authCookie.Value).Result()
 
-	var sessionData auth.Session
+		var sessionData auth.Session
 
-	json.Unmarshal([]byte(cachedSession), &sessionData)
+		json.Unmarshal([]byte(cachedSession), &sessionData)
 
-	if err != nil {
-		return c.String(http.StatusInternalServerError, err.Error())
-	}
+		if err != nil {
+			return c.String(http.StatusInternalServerError, err.Error())
+		}
 
-	c.Set("session", sessionData)
-	
-	return next(c)
+		c.Set("session", sessionData)
+
+		return next(c)
 	}
 }

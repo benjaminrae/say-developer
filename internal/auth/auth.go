@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"fmt"
 	"os"
 	"time"
 
@@ -45,6 +46,7 @@ const (
 
 func NewAuth() {
 
+	domain := os.Getenv("SERVICE_URL")
 	googleClientId := os.Getenv("GOOGLE_CLIENT_ID")
 	googleClientSecret := os.Getenv("GOOGLE_CLIENT_SECRET")
 	githubClientId := os.Getenv("GITHUB_CLIENT_ID")
@@ -60,8 +62,8 @@ func NewAuth() {
 	gothic.Store = store
 
 	goth.UseProviders(
-		google.New(googleClientId, googleClientSecret, "http://localhost:3000/auth/google/callback"),
-		github.New(githubClientId, githubClientSecret, "http://localhost:3000/auth/github/callback"),
+		google.New(googleClientId, googleClientSecret, fmt.Sprintf("%s%s", domain, "/auth/google/callback")),
+		github.New(githubClientId, githubClientSecret, fmt.Sprintf("%s%s", domain, "/auth/github/callback")),
 	)
 
 }

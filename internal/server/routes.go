@@ -2,6 +2,8 @@ package server
 
 import (
 	"net/http"
+	"os"
+	"strings"
 
 	_ "github.com/benjaminrae/say-developer/docs"
 	"github.com/labstack/echo/v4"
@@ -21,11 +23,13 @@ import (
 
 // @host localhost:3000
 func (s *Server) RegisterRoutes() http.Handler {
+	whitelist := strings.Split(os.Getenv("ORIGIN_WHITELIST"), ",")
+
 	router := echo.New()
 	router.Use(middleware.Logger())
 	router.Use(middleware.Recover())
 	router.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://localhost:5173"},
+		AllowOrigins:     whitelist,
 		AllowCredentials: true,
 	}))
 	//	router.Renderer = CreateTemplateRenderer()
