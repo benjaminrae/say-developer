@@ -24,6 +24,7 @@ export const TermSearch = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [searchTerm, setSearchTerm] = useDebouncedValue('');
+  const [isDirty, setIsDirty] = useState(false);
 
   const handleSearchInputChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     setIsOpen(value.length > 0);
