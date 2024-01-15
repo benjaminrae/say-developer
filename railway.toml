@@ -1,11 +1,9 @@
 [build]
 builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
-buildCommand = "docker build --build-arg PORT -t say-dev"
 
 [deploy]
 healthcheckPath = "/health"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 5
-deployCommand = "docker run --env-file .env say-dev:latest"
