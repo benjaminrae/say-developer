@@ -20,6 +20,7 @@
 !LICENSE
 
 !Makefile
+!Dockerfile
 
 # ...even if they are in subdirectories
 !*/
