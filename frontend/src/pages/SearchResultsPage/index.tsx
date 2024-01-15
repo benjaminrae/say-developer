@@ -5,7 +5,7 @@ import { useSearchTerms } from '../../domains/terms/hooks';
 import { Divider } from '../../shared/Divider';
 
 export const SearchResultsPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const term = searchParams.get('term');
 

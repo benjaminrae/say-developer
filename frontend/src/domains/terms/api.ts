@@ -13,7 +13,7 @@ export const searchTerms = async (query: SearchTermsQuery): Promise<PaginatedTer
 };
 
 export const createTerm = async (newTerm: NewTerm) => {
-  const { data } = await sayDeveloperRequest.post<Term>('/terms', newTerm);
+  const { data } = await sayDeveloperRequest.post<void>('/terms', newTerm);
 
   return data;
 };
