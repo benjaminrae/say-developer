@@ -27,20 +27,28 @@ export const TermSearch = () => {
   const [isDirty, setIsDirty] = useState(false);
 
   const handleSearchInputChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+    setIsDirty(true);
     setIsOpen(value.length > 0);
     setSearchInput(value);
     setSearchTerm(value);
   };
 
-  const { data } = useSearchTerms(searchTerm);
+  const { data } = useSearchTerms({ term: searchTerm });
 
   const { recentSearches, saveSearch, removeSearch } = useRecentSearches(searchTerm);
 
-  const combinedSearches = useCombineSearches(recentSearches, data || []);
+  const combinedSearches = useCombineSearches(recentSearches, data?.terms || []);
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!isDirty) {
+      return;
+    }
+
+    if (searchInput === '') {
+      return;
+    }
     saveSearch(searchInput);
     navigate(`/search/${searchInput}`);
   };

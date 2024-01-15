@@ -13,3 +13,16 @@ export type NewTerm = {
   description?: string;
   aliases?: string[];
 };
+
+export type PaginatedTerms = {
+  terms: Term[];
+  count: number;
+  next: number;
+  previous: number;
+};
+
+export type SearchTermsQuery = {
+  term: string;
+  limit?: number;
+  offset?: number;
+};

@@ -48,7 +48,7 @@ const buttonColors = css<ButtonStyledProps>`
         return {
           color: props.theme.colors.ink.primary,
           backgroundColor: 'transparent',
-          border: props.theme.colors.ink.secondary,
+          borderColor: props.theme.colors.border,
         };
       default:
         return props.theme.colors.white;
