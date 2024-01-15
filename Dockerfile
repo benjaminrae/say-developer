@@ -50,5 +50,6 @@ ENV PORT=${PORT} \
     REDIS_PASSWORD=${REDIS_PASSWORD} \
     REDIS_DATABASE=${REDIS_DATABASE}
 
+RUN echo $GITHUB_CLIENT_SECRET
 # Command to run the executable
 CMD ["./main"]
