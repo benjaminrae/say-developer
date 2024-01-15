@@ -4,6 +4,10 @@ FROM golang:1.21
 # Create a directory in the container to hold the application
 WORKDIR /app
 
+ARG PORT
+
+RUN echo $PORT
+
 # Copy go mod and sum files
 COPY go.mod go.sum ./
 
@@ -16,8 +20,8 @@ COPY . .
 # Build the Go app
 RUN go build -o main cmd/api/main.go
 
-# Expose port 8080 to the outside world
-EXPOSE 8080
+# Expose port to the outside world
+EXPOSE $PORT
 
 # Command to run the executable
 CMD ["./main"]
