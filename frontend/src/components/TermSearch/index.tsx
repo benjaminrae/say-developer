@@ -74,7 +74,7 @@ export const TermSearch = () => {
           {combinedSearches.map(({ term, isRecent }) => (
             <TermSearchRow key={term}>
               {isRecent ? <Clock color="#000" /> : <Search color="#000" />}
-              <TermSearchResult to={`/search/${term}`}>{term}</TermSearchResult>
+              <TermSearchResult to={`/search?term=${term}`}>{term}</TermSearchResult>
               {isRecent && (
                 <Button variant="ghost" type="button" onClick={() => removeSearch(term)} size="sm">
                   remove

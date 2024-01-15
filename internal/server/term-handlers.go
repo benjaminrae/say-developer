@@ -75,6 +75,7 @@ SELECT id, raw, words, phonetic, description, created_by, aliases, COUNT(*) OVER
 			FROM unnest(words) AS word
 			WHERE word ILIKE '%' || $1 || '%'
 		)
+		OR raw ILIKE '%' || $1 || '%'
 		OR description ILIKE '%' || $1 || '%'
 		OR EXISTS (
 			SELECT 1
