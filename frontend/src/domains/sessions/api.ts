@@ -1,3 +1,4 @@
+import { config } from '../../config';
 import { sayDeveloperRequest } from '../api/request';
 import { Session } from './types';
 
@@ -8,13 +9,13 @@ export const getCurrentSession = async () => {
 };
 
 export const navigateToGoogleAuth = () => {
-  window.location.href = 'http://localhost:3000/auth/google';
+  window.location.href = `${config.SAY_DEVELOPER_API_URL}/auth/google`;
 };
 
 export const navigateToGithubAuth = () => {
-  window.location.href = 'http://localhost:3000/auth/github';
+  window.location.href = `${config.SAY_DEVELOPER_API_URL}/auth/github`;
 };
 
 export const navigateToProviderLogout = (provider: string) => {
-  window.location.href = `http://localhost:3000/logout/${provider}`;
+  window.location.href = `${config.SAY_DEVELOPER_API_URL}/logout/${provider}`;
 };
