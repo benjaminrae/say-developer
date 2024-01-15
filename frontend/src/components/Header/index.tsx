@@ -4,7 +4,7 @@ import { Button } from '../../shared/Button';
 import { Flex } from '../../shared/Flex';
 import { AuthContext } from '../AuthProvider/context';
 import { ThemeToggle } from '../ThemeToggle';
-import { HeaderStyled } from './Header.styled';
+import { HeaderStyled, HeaderTitle } from './Header.styled';
 
 export const Header = () => {
   const { loginWithGithub, logoutProvider } = useAuthRedirect();
@@ -12,7 +12,7 @@ export const Header = () => {
 
   return (
     <HeaderStyled>
-      <h1>Say.dev</h1>
+      <HeaderTitle>Say.dev</HeaderTitle>
       <Flex gap="8px" alignItems="center">
         {user ? (
           <Button onClick={() => logoutProvider(user.provider)}>Logout</Button>

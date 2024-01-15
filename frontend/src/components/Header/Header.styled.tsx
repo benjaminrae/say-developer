@@ -5,3 +5,8 @@ export const HeaderStyled = styled.header`
   justify-content: space-between;
   align-items: center;
 `;
+
+export const HeaderTitle = styled.div`
+  font-weight: bold;
+  font-size: 2rem;
+`;

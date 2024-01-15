@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: '/search/:term',
+        path: '/search',
         element: <SearchResultsPage />,
       },
     ],

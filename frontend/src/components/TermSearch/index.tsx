@@ -50,7 +50,7 @@ export const TermSearch = () => {
       return;
     }
     saveSearch(searchInput);
-    navigate(`/search/${searchInput}`);
+    navigate(`/search?term=${searchInput}`);
   };
 
   return (
