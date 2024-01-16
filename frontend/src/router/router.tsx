@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { MainLayout } from '../components/MainLayout';
 import { HomePage } from '../pages/HomePage';
 import { NewTermPage } from '../pages/NewTermPage';
+import { PronouncePage } from '../pages/PronouncePage';
 import { SearchResultsPage } from '../pages/SearchResultsPage';
 import { TermPage } from '../pages/TermPage';
 
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: '/term/:term',
         element: <TermPage />,
+      },
+      {
+        path: '/pronounce/:term',
+        element: <PronouncePage />,
       },
     ],
   },

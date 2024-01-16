@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Page } from '../../components/Page';
 import { useGetTerm } from '../../domains/terms/hooks';
 
@@ -19,6 +19,8 @@ export const TermPage = () => {
               ))}
             </ul>
           )}
+          <p>Know how to pronounce {term}?</p>
+          <Link to={`/pronounce/${term}`}>Submit your pronunciation for {term}</Link>
         </>
       )}
     </Page>
