@@ -68,7 +68,7 @@ func (s *Server) SearchTermHandler(c echo.Context) error {
 	db := s.db.GetDb()
 
 	rows, err := db.QueryContext(context.Background(), `
-SELECT id, raw, words, phonetic, description, created_by, aliases, COUNT(*) OVER() as count
+		SELECT id, raw, words, phonetic, description, created_by, aliases, COUNT(*) OVER() as count
 		FROM terms
 		WHERE EXISTS (
 			SELECT 1
@@ -136,4 +136,29 @@ SELECT id, raw, words, phonetic, description, created_by, aliases, COUNT(*) OVER
 	}
 
 	return c.JSON(http.StatusOK, results)
+}
+
+func (s *Server) GetTermHandler(c echo.Context) error {
+	termQuery := c.Param("term")
+
+	db := s.db.GetDb()
+
+	result, err := db.QueryContext(context.Background(), `
+		SELECT id, raw, words, phonetic, description, created_by, aliases
+		FROM terms
+		WHERE raw = $1
+	`, termQuery)
+
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+	defer result.Close()
+
+	term := models.Term{}
+
+	result.Next()
+	result.Scan(&term.Id, &term.Raw, pq.Array(&term.Words), &term.Phonetic, &term.Description, &term.CreatedBy, pq.Array(&term.Aliases))
+
+	return c.JSON(http.StatusOK, term)
+
 }

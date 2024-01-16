@@ -23,3 +23,9 @@ export const getTerms = async () => {
 
   return data;
 };
+
+export const getTerm = async (term: string) => {
+  const { data } = await sayDeveloperRequest.get<Term>(`/terms/${term}`);
+
+  return data;
+};

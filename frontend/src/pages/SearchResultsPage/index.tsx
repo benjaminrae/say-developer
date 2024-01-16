@@ -20,7 +20,9 @@ export const SearchResultsPage = () => {
       {data?.count && (
         <ul>
           {data?.terms.map((term) => (
-            <li key={term.id}>{term.raw}</li>
+            <li key={term.id}>
+              <Link to={`/term/${term.raw}`}>{term.raw}</Link>
+            </li>
           ))}
         </ul>
       )}

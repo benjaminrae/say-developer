@@ -34,6 +34,12 @@ export const TermSearchRow = styled.div<{ $isFocused?: boolean }>`
   `}
 `;
 
+export const TermSearchOpenRow = styled(TermSearchRow)`
+  &:hover {
+    background-color: ${(props) => props.theme.colors.hover.primary};
+  }
+`;
+
 export const TermSearchHeading = styled.div`
   font-weight: 600;
   font-size: 1.25rem;

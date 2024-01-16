@@ -15,6 +15,7 @@ export const QUERY_KEYS = {
   SEARCH_TERMS: 'SEARCH_TERMS',
   GET_TERMS: 'GET_TERMS',
   CREATE_TERM: 'CREATE_TERM',
+  GET_TERM: 'GET_TERM',
 } as const;
 
 const queryKeyValues = Object.values(QUERY_KEYS);

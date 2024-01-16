@@ -1,7 +1,7 @@
 import { UseQueryOptions, useMutation, useQuery } from 'react-query';
 import { QUERY_KEYS } from '../../libs/react-query';
-import { createTerm, searchTerms } from './api';
-import { PaginatedTerms, SearchTermsQuery } from './types';
+import { createTerm, getTerm, searchTerms } from './api';
+import { PaginatedTerms, SearchTermsQuery, Term } from './types';
 
 export const useSearchTerms = (
   query: SearchTermsQuery,
@@ -16,4 +16,8 @@ export const useSearchTerms = (
 
 export const useCreateTerm = () => {
   return useMutation(createTerm);
+};
+
+export const useGetTerm = (term: string, options?: UseQueryOptions<Term>) => {
+  return useQuery([QUERY_KEYS.GET_TERMS, term, options], () => getTerm(term));
 };

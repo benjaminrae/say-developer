@@ -47,6 +47,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 
 	router.POST("/terms", s.CreateTermHandler)
 	router.GET("/terms", s.SearchTermHandler)
+	router.GET("/terms/:term", s.GetTermHandler)
 
 	return router
 }

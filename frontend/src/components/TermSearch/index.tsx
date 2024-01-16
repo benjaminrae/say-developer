@@ -8,6 +8,7 @@ import { Clock } from '../../shared/Icons/Clock';
 import { Search } from '../../shared/Icons/Search';
 import {
   TermSearchInput,
+  TermSearchOpenRow,
   TermSearchResult,
   TermSearchRow,
   TermSearchStyled,
@@ -72,7 +73,7 @@ export const TermSearch = () => {
         <>
           <Divider />
           {combinedSearches.map(({ term, isRecent }) => (
-            <TermSearchRow key={term}>
+            <TermSearchOpenRow key={term}>
               {isRecent ? <Clock color="#000" /> : <Search color="#000" />}
               <TermSearchResult to={`/search?term=${term}`}>{term}</TermSearchResult>
               {isRecent && (
@@ -80,7 +81,7 @@ export const TermSearch = () => {
                   remove
                 </Button>
               )}
-            </TermSearchRow>
+            </TermSearchOpenRow>
           ))}
         </>
       )}
