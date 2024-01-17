@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  WordAutoCarouselInnerSlideIn,
-  WordAutoCarouselInnerSlideOut,
-  WordAutoCarouselStyled,
-} from './WordAutoCarouselStyled';
+import { WordAutoCarouselInner, WordAutoCarouselStyled } from './WordAutoCarouselStyled';
 
 export type WordAutoCarouselProps = {
   words: string[];
@@ -12,11 +8,9 @@ export type WordAutoCarouselProps = {
 
 export const WordAutoCarousel = ({ words, speed }: WordAutoCarouselProps) => {
   const [wordIndex, setWordIndex] = useState(0);
-  const [previousWordIndex, setPreviousWordIndex] = useState(-1);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setPreviousWordIndex(wordIndex);
       setWordIndex((prev) => (prev + 1) % words.length);
     }, speed || 1000);
 
@@ -25,14 +19,11 @@ export const WordAutoCarousel = ({ words, speed }: WordAutoCarouselProps) => {
 
   return (
     <WordAutoCarouselStyled>
-      {previousWordIndex >= 0 && (
-        <WordAutoCarouselInnerSlideOut key={`slideOut${previousWordIndex}`} className="slideOut">
-          {words[previousWordIndex]}
-        </WordAutoCarouselInnerSlideOut>
-      )}
-      <WordAutoCarouselInnerSlideIn className="slideIn" key={`slideIn${wordIndex}`}>
-        {words[wordIndex]}
-      </WordAutoCarouselInnerSlideIn>
+      {words.map((word, index) => (
+        <WordAutoCarouselInner key={word} className={wordIndex === index ? 'visible' : 'hidden'}>
+          {word}
+        </WordAutoCarouselInner>
+      ))}
     </WordAutoCarouselStyled>
   );
 };
