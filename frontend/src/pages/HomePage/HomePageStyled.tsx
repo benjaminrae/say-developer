@@ -7,4 +7,5 @@ export const HomePageTitle = styled.h1`
   font-size: 3rem;
   margin-bottom: 2rem;
   font-weight: 800;
+  text-align: center;
 `;

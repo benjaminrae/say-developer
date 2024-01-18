@@ -18,7 +18,9 @@ export const HomePage = () => {
               'recursion?',
               'encapsulation?',
             ]}
-            speed={3000}
+            deleteSpeed={50}
+            loop={true}
+            typingSpeed={100}
           />
         </HomePageTitle>
       </div>
