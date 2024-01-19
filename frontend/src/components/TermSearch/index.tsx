@@ -59,6 +59,7 @@ export const TermSearch = () => {
       <TermSearchRow>
         <Search color="#000" />
         <TermSearchInput
+          placeholder="Search for a term..."
           value={searchInput}
           onChange={handleSearchInputChange}
           autoCorrect="false"
