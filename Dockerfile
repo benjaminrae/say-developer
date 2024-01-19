@@ -32,6 +32,8 @@ COPY . .
 # Build the Go app
 RUN go build -o main cmd/api/main.go
 
+RUN go build -o cli cmd/cli/main.go
+
 # Expose port to the outside world
 EXPOSE $PORT
 
@@ -50,6 +52,5 @@ ENV PORT=${PORT} \
     REDIS_PASSWORD=${REDIS_PASSWORD} \
     REDIS_DATABASE=${REDIS_DATABASE}
 
-RUN echo $GITHUB_CLIENT_SECRET
 # Command to run the executable
-CMD ["./main"]
+CMD ["./cli", "migrate", "--up", "&&", "./main"]
