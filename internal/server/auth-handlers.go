@@ -184,7 +184,7 @@ func (s *Server) AuthCurrentUser(next echo.HandlerFunc) echo.HandlerFunc {
 
 		json.Unmarshal([]byte(cachedSession), &sessionData)
 
-		if err != nil {
+		if err != nil && err.Error() != "redis: nil" {
 			return c.String(http.StatusInternalServerError, err.Error())
 		}
 
