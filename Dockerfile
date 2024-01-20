@@ -52,8 +52,8 @@ ENV PORT=${PORT} \
     REDIS_PASSWORD=${REDIS_PASSWORD} \
     REDIS_DATABASE=${REDIS_DATABASE}
 
-RUN echo '#!/bin/sh\n\./cli migrate --up && ./main' > start.sh
-RUN chmod +x start.sh
+
+RUN './cli migrate --up'
 
 # Command to run the executable
-CMD ["./start.sh"]
+CMD ["./main"]
