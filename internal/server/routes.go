@@ -49,5 +49,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	router.GET("/terms", s.SearchTermHandler)
 	router.GET("/terms/:term", s.GetTermHandler)
 
+	router.POST("/pronunciations", s.UploadPronunciationHandler)
+
 	return router
 }
