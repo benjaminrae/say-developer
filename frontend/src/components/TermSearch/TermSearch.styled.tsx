@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from '../Link';
 
 export const TermSearchStyled = styled.form`
   border-radius: ${(props) => props.theme.sizes.borderRadius.md};
@@ -51,5 +51,7 @@ export const TermSearchHeading = styled.div`
 `;
 
 export const TermSearchResult = styled(Link)`
+  all: unset;
   flex: 1;
+  cursor: pointer;
 `;

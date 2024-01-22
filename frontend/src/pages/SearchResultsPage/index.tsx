@@ -1,4 +1,5 @@
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import { Link } from '../../components/Link';
 import { Page } from '../../components/Page';
 import { TermSearch } from '../../components/TermSearch';
 import { useSearchTerms } from '../../domains/terms/hooks';
@@ -17,7 +18,7 @@ export const SearchResultsPage = () => {
       <h1>{term}</h1>
       <span>{data?.count} results found</span>
       <Divider />
-      {data?.count && (
+      {data?.count! > 0 && (
         <ul>
           {data?.terms.map((term) => (
             <li key={term.id}>
