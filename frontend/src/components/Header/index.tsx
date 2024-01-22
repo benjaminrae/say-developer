@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { useAuthRedirect } from '../../domains/sessions/hooks';
 import { Flex } from '../../shared/Flex';
 import { AuthContext } from '../AuthProvider/context';
 import { Avatar } from '../Avatar';
@@ -8,7 +7,6 @@ import { LogoutButton } from '../LogoutButton';
 import { HeaderLink, HeaderStyled, HeaderTitle } from './Header.styled';
 
 export const Header = () => {
-  const { loginWithGithub, logoutProvider } = useAuthRedirect();
   const { user } = useContext(AuthContext);
 
   return (
@@ -19,7 +17,6 @@ export const Header = () => {
       <Flex gap="8px" alignItems="center">
         {user ? <LogoutButton /> : <GithubLoginButton />}
         <Avatar />
-        {/* <ThemeToggle /> */}
       </Flex>
     </HeaderStyled>
   );
