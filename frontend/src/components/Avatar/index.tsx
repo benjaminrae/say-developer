@@ -1,5 +1,5 @@
 import { useAuth } from '../AuthProvider/hooks';
-import { AvatarFallback } from './Avatar.styles';
+import { AvatarFallback, AvatarImage } from './Avatar.styles';
 import { useInitials } from './hooks';
 
 export const Avatar = () => {
@@ -7,11 +7,11 @@ export const Avatar = () => {
   const initials = useInitials(user?.name ?? '');
 
   return (
-    <div>
-      {/* {user?.avatarUrl && (
+    <>
+      {user?.avatarUrl && (
         <AvatarImage height="50px" width="50ox" src={user?.avatarUrl} alt="avatar" />
-      )} */}
-      {user?.avatarUrl && <AvatarFallback>{initials}</AvatarFallback>}
-    </div>
+      )}
+      {!user?.avatarUrl && <AvatarFallback>{initials}</AvatarFallback>}
+    </>
   );
 };
