@@ -1,9 +1,8 @@
 import { useContext } from 'react';
 import { Flex } from '../../shared/Flex';
 import { AuthContext } from '../AuthProvider/context';
-import { Avatar } from '../Avatar';
 import { GithubLoginButton } from '../GithubLoginButton';
-import { LogoutButton } from '../LogoutButton';
+import { UserMenu } from '../UserMenu';
 import { HeaderLink, HeaderStyled, HeaderTitle } from './Header.styled';
 
 export const Header = () => {
@@ -15,8 +14,7 @@ export const Header = () => {
         <HeaderLink to="/">Say.dev</HeaderLink>
       </HeaderTitle>
       <Flex gap="8px" alignItems="center">
-        {user ? <LogoutButton /> : <GithubLoginButton />}
-        <Avatar />
+        {user ? <UserMenu /> : <GithubLoginButton />}
       </Flex>
     </HeaderStyled>
   );
