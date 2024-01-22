@@ -11,6 +11,10 @@ export const TermSearchStyled = styled.form`
 
   .icon {
   }
+
+  .term-search__button {
+    color: ${(props) => props.theme.colors.black};
+  }
 `;
 
 export const TermSearchInput = styled.input`

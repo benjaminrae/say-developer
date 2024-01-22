@@ -65,7 +65,7 @@ export const TermSearch = () => {
           autoCorrect="false"
           onFocus={() => setIsOpen(true)}
         />
-        <Button type="submit" variant="stroke">
+        <Button type="submit" variant="ghost" className="term-search__button">
           Search
         </Button>
       </TermSearchRow>
