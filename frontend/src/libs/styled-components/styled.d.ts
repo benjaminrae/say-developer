@@ -12,6 +12,7 @@ declare module 'styled-components' {
   };
 
   export interface DefaultTheme extends MainTheme {
+    theme: 'light' | 'dark';
     colors: {
       accent: {
         primary: string;

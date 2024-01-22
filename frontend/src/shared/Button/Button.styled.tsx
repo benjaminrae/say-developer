@@ -6,6 +6,9 @@ import { ButtonStyledProps } from './types';
 const buttonStyle = css`
   cursor: pointer;
   font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
   outline: none;
 

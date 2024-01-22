@@ -5,6 +5,7 @@ import { supportColors } from './supportColors';
 
 export const darkTheme: DefaultTheme = {
   ...mainTheme,
+  theme: 'dark',
   colors: {
     accent: {
       primary: moonDark.piccolo,
