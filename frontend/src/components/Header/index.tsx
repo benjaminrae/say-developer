@@ -1,13 +1,12 @@
 import { useContext } from 'react';
-import { useAuthRedirect } from '../../domains/sessions/hooks';
-import { Button } from '../../shared/Button';
 import { Flex } from '../../shared/Flex';
 import { AuthContext } from '../AuthProvider/context';
-import { ThemeToggle } from '../ThemeToggle';
+import { Avatar } from '../Avatar';
+import { GithubLoginButton } from '../GithubLoginButton';
+import { LogoutButton } from '../LogoutButton';
 import { HeaderLink, HeaderStyled, HeaderTitle } from './Header.styled';
 
 export const Header = () => {
-  const { loginWithGithub, logoutProvider } = useAuthRedirect();
   const { user } = useContext(AuthContext);
 
   return (
@@ -16,12 +15,8 @@ export const Header = () => {
         <HeaderLink to="/">Say.dev</HeaderLink>
       </HeaderTitle>
       <Flex gap="8px" alignItems="center">
-        {user ? (
-          <Button onClick={() => logoutProvider(user.provider)}>Logout</Button>
-        ) : (
-          <Button onClick={loginWithGithub}>Login with Github</Button>
-        )}
-        <ThemeToggle />
+        {user ? <LogoutButton /> : <GithubLoginButton />}
+        <Avatar />
       </Flex>
     </HeaderStyled>
   );

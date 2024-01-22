@@ -124,7 +124,7 @@ func (s *Server) LogoutProviderHandler(c echo.Context) error {
 		session,
 	)
 
-	return c.Redirect(http.StatusTemporaryRedirect, "/")
+	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("CLIENT_URL"))
 }
 
 // TODO: improve this handler
@@ -153,13 +153,15 @@ func (s *Server) GetSession(c echo.Context) error {
 
 	cachedSession, err := redis.Get(context.Background(), session.Value).Result()
 
+	if err != nil {
+		session.MaxAge = -1
+		c.SetCookie(session)
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
 	var sessionData auth.Session
 
 	json.Unmarshal([]byte(cachedSession), &sessionData)
-
-	if err != nil {
-		return c.String(http.StatusInternalServerError, err.Error())
-	}
 
 	return c.JSONPretty(http.StatusOK, sessionData, "  ")
 }
@@ -185,6 +187,7 @@ func (s *Server) AuthCurrentUser(next echo.HandlerFunc) echo.HandlerFunc {
 		json.Unmarshal([]byte(cachedSession), &sessionData)
 
 		if err != nil && err.Error() != "redis: nil" {
+			authCookie.MaxAge = -1
 			return c.String(http.StatusInternalServerError, err.Error())
 		}
 

@@ -1,4 +1,5 @@
 import { forwardRef, memo } from 'react';
+import { Spacer } from '../Spacer';
 import { ButtonStyled } from './Button.styled';
 import { ButtonProps } from './types';
 
@@ -13,15 +14,25 @@ export const Button = memo(
         children,
         ...props
       },
-      ref,
+      ref
     ) => {
       return (
         <ButtonStyled variant={variant} size={size} {...props} ref={ref}>
-          {LeftIcon && <LeftIcon />}
+          {LeftIcon && (
+            <>
+              <LeftIcon size={size} color="currentColor" />
+              <Spacer size={'xs'} />
+            </>
+          )}
           {children}
-          {RightIcon && <RightIcon />}
+          {RightIcon && (
+            <>
+              <Spacer size={'xs'} />
+              <RightIcon size={size} color="currentColor" />
+            </>
+          )}
         </ButtonStyled>
       );
-    },
-  ),
+    }
+  )
 );
