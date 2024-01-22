@@ -3,7 +3,7 @@ import { useAuthRedirect } from '../../domains/sessions/hooks';
 import { Button } from '../../shared/Button';
 import { Flex } from '../../shared/Flex';
 import { AuthContext } from '../AuthProvider/context';
-import { ThemeToggle } from '../ThemeToggle';
+import { Avatar } from '../Avatar';
 import { HeaderLink, HeaderStyled, HeaderTitle } from './Header.styled';
 
 export const Header = () => {
@@ -21,7 +21,8 @@ export const Header = () => {
         ) : (
           <Button onClick={loginWithGithub}>Login with Github</Button>
         )}
-        <ThemeToggle />
+        <Avatar />
+        {/* <ThemeToggle /> */}
       </Flex>
     </HeaderStyled>
   );
