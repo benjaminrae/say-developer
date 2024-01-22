@@ -63,5 +63,11 @@ declare module 'styled-components' {
       };
       sizes: Record<FontSize, string>;
     };
+    breakpoints: {
+      phone: string;
+      tablet: string;
+      desktop: string;
+      widescreen: string;
+    };
   }
 }

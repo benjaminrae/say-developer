@@ -1,6 +1,12 @@
 import { MainTheme } from 'styled-components';
 
 export const mainTheme: MainTheme = {
+  breakpoints: {
+    phone: '@media (max-width: 480px)',
+    tablet: '@media (max-width: 768px), (max-height: 400px) and (orientation: landscape)',
+    desktop: '@media (max-width: 1024px)',
+    widescreen: '@media (max-width: 1440px)',
+  },
   sizes: {
     borderRadius: {
       xs: '0.25rem',

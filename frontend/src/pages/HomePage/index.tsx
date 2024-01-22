@@ -1,9 +1,12 @@
 import { TermSearch } from '../../components/TermSearch';
 import { WordAutoCarousel } from '../../components/WordAutoCarousel';
+import { useBreakpoints } from '../../hooks/useBreakpoints';
 import { Flex } from '../../shared/Flex';
 import { HomePageStyled, HomePageTitle } from './HomePageStyled';
 
 export const HomePage = () => {
+  const { isPhone } = useBreakpoints();
+
   return (
     <HomePageStyled pageTitle="Home">
       <Flex
@@ -12,7 +15,7 @@ export const HomePage = () => {
         style={{ margin: '0 auto', width: '90%', height: '100%' }}
       >
         <Flex justifyContent="center" alignItems="center" style={{ height: '25vh' }}>
-          <HomePageTitle>
+          <HomePageTitle size={isPhone ? 'sm' : 'lg'}>
             <span>How do you say </span>
             <WordAutoCarousel
               words={[
