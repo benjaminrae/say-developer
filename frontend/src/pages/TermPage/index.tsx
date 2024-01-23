@@ -1,5 +1,4 @@
-import { useParams } from 'react-router-dom';
-import { Link } from '../../components/Link';
+import { Link, useParams } from 'react-router-dom';
 import { Page } from '../../components/Page';
 import { useGetTerm } from '../../domains/terms/hooks';
 
