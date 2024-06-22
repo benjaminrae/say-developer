@@ -33,3 +33,5 @@
 !/migrations/**/*.sql
 
 !railway.toml
+
+node_modules
