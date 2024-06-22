@@ -28,6 +28,7 @@
 !.env.example
 
 !/frontend/**/*.*
+!/backend/**/*.*
 !/.github/**/*.*
 !/migrations/**/*.sql
 
