@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateTermController } from '../../src/terms/infrastructure/http/create-term.controller';
 import { CreateTermDto } from '../../src/terms/infrastructure/http/dtos/create-term.dto';
+import { CqrsModule } from '@nestjs/cqrs';
 
 describe('Create Term Feature', () => {
     let controller: CreateTermController;
@@ -8,6 +9,7 @@ describe('Create Term Feature', () => {
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             controllers: [CreateTermController],
+            imports: [CqrsModule],
         }).compile();
 
         controller = module.get<CreateTermController>(CreateTermController);
