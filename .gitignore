@@ -34,4 +34,9 @@
 
 !railway.toml
 
+
+!.npmrc
+!package.json
+!pnpm-workspace.yaml
+!pnpm-lock.yaml
 node_modules
