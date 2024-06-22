@@ -1,6 +1,6 @@
-export class CreateTermDto {
-    term: string;
-    description: string;
+export class CreateTermCommand {
+    private term: string;
+    private description: string;
 
     constructor(term: string, description: string) {
         this.term = term;
