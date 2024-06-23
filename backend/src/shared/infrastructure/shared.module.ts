@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SharedKeys } from './shared.keys';
 import { RandomUuidService } from './random-uuid.service';
+import { PersistenceModule } from './persistence/persistence.module';
 
 @Module({
     providers: [
@@ -12,5 +13,6 @@ import { RandomUuidService } from './random-uuid.service';
         },
     ],
     exports: [SharedKeys.UUID_SERVICE],
+    imports: [PersistenceModule],
 })
 export class SharedModule {}
