@@ -43,4 +43,8 @@ export class Result<ResultType> {
     private hasValue() {
         return this._value !== undefined && this._value !== null;
     }
+
+    public isFailure() {
+        return !this.hasValue() && this.hasError();
+    }
 }

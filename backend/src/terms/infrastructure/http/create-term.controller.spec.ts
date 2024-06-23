@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateTermController } from './create-term.controller';
-import { CreateTermDto } from './dtos/create-term.dto';
+import { CreateTermRequest } from './requests/create-term.request';
 import { CommandBus } from '@nestjs/cqrs';
 import { CreateTermCommand } from '../../application/create-term.command';
 
@@ -19,10 +19,10 @@ describe('CreateTermController', () => {
         controller = module.get<CreateTermController>(CreateTermController);
     });
 
-    it('should execute a CreateTermCommand with the received CreateTermDto', async () => {
+    it('should execute a CreateTermCommand with the received CreateTermRequest', async () => {
         const term = 'Git';
         const description = 'A version control system';
-        const createTermDto = new CreateTermDto(term, description);
+        const createTermDto = new CreateTermRequest(term, description);
 
         await controller.createTerm(createTermDto);
 

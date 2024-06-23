@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateTermController } from '../../src/terms/infrastructure/http/create-term.controller';
-import { CreateTermDto } from '../../src/terms/infrastructure/http/dtos/create-term.dto';
+import { CreateTermRequest } from '../../src/terms/infrastructure/http/requests/create-term.request';
 import { TermsModule } from '../../src/terms/infrastructure/terms.module';
 import { TermsKeys } from '../../src/terms/infrastructure/terms.keys';
 import { TermsRepository } from '../../src/terms/domain/terms.repository';
@@ -39,7 +39,7 @@ describe('Create Term Feature', () => {
     it('User should be able to create a Term and save it to the database', async () => {
         const term = 'Git';
         const description = 'A version control system';
-        const createTermDto = new CreateTermDto(term, description);
+        const createTermDto = new CreateTermRequest(term, description);
         const id = '3579c66e-91a1-4170-ad01-7186e4184f2b';
         uuidService.newUuid = jest.fn().mockReturnValue(id);
 
