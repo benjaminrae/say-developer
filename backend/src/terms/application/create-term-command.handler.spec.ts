@@ -13,6 +13,7 @@ describe('CreateTermCommandHandler', () => {
 
     let handler: CreateTermCommandHandler;
     beforeEach(() => {
+        jest.clearAllMocks();
         repository = { save: jest.fn() };
         uuidService = { newUuid: jest.fn() };
         handler = new CreateTermCommandHandler(repository, uuidService);
@@ -44,5 +45,23 @@ describe('CreateTermCommandHandler', () => {
         const result = await handler.execute(createTermCommand);
 
         expect(result.isSuccess()).toBe(true);
+        expect(result.value()).toStrictEqual(expectedTerm);
+    });
+
+    it('should return a failure result when save to database is unsuccessful', async () => {
+        uuidService.newUuid = jest.fn().mockReturnValue(expectedId);
+        const createTermCommand = new CreateTermCommand(term, description);
+        const expectedTerm = new Term({
+            id: expectedId,
+            props: { term, description },
+        });
+        const expectedError = new Error();
+        repository.save = jest.fn().mockRejectedValue(expectedError);
+
+        const result = await handler.execute(createTermCommand);
+
+        expect(result.isSuccess()).toBe(false);
+        expect(result.error()).toBeInstanceOf(Error);
+        expect(result.error()).toStrictEqual(expectedError);
     });
 });

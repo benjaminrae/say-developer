@@ -18,7 +18,7 @@ export class CreateTermCommandHandler implements CommandHandler {
         const id = this.uuidService.newUuid();
 
         try {
-            let term = new Term({
+            const term = new Term({
                 id,
                 props: {
                     term: command.term,
@@ -28,6 +28,8 @@ export class CreateTermCommandHandler implements CommandHandler {
             await this.repository.save(term);
 
             return Result.success(term);
-        } catch {}
+        } catch (error) {
+            return Result.failure(error);
+        }
     }
 }
