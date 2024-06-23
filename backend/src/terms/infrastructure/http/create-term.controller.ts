@@ -1,16 +1,19 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
 import { CreateTermDto } from './dtos/create-term.dto';
 import { CommandBus } from '@nestjs/cqrs';
 import { CreateTermCommand } from '../../application/create-term.command';
 
-@Controller('create-term-controller')
+@Controller('terms')
 export class CreateTermController {
     private commandBus: CommandBus;
+
     constructor(commandBus: CommandBus) {
         this.commandBus = commandBus;
     }
 
+    @Post()
     async createTerm(createTermDto: CreateTermDto) {
-        await this.commandBus.execute(new CreateTermCommand(createTermDto.term, createTermDto.description));
+        const createTermCommand = new CreateTermCommand(createTermDto.term, createTermDto.description);
+        await this.commandBus.execute(createTermCommand);
     }
 }

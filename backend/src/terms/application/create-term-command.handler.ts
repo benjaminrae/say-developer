@@ -5,7 +5,7 @@ import { Term } from '../domain/term';
 import { UuidService } from './uuid.service';
 import { Result } from '../../shared/result';
 
-export class CreateTermCommandHandler implements CommandHandler {
+export class CreateTermCommandHandler implements CommandHandler<CreateTermCommand> {
     private repository: TermsRepository;
     private uuidService: UuidService;
 
@@ -14,7 +14,7 @@ export class CreateTermCommandHandler implements CommandHandler {
         this.uuidService = uuidService;
     }
 
-    async execute(command: CreateTermCommand): Promise<Result<Term>> {
+    public async execute(command: CreateTermCommand): Promise<Result<Term>> {
         const id = this.uuidService.newUuid();
 
         try {
