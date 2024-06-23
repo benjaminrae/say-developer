@@ -1,6 +1,6 @@
 import { UuidService } from '../../terms/application/uuid.service';
 
-export class RandomUuidServicee implements UuidService {
+export class RandomUuidService implements UuidService {
     newUuid(): string {
         return crypto.randomUUID();
     }

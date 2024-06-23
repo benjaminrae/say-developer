@@ -3,14 +3,14 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { CreateTermController } from './http/create-term.controller';
 import { NestCreateTermCommandHandler } from './handlers/nest-create-term-command.handler';
 import { TermsKeys } from './terms.keys';
-import { RandomUuidServicee } from '../../shared/infrastructure/RandomUuidServicee';
+import { RandomUuidService } from '../../shared/infrastructure/RandomUuidService';
 import { InMemoryTermsRepository } from './persistence/inMemoryTermsRepository';
 
 const services: Provider[] = [
     {
         provide: TermsKeys.UUID_SERVICE,
         useFactory: () => {
-            return new RandomUuidServicee();
+            return new RandomUuidService();
         },
     },
 ];
