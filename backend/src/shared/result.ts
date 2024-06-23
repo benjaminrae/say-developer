@@ -1,4 +1,4 @@
-import { DomainError } from './DomainError';
+import { DomainError } from './domain.error';
 
 type ResultProps<ResultValue> = {
     value?: ResultValue;

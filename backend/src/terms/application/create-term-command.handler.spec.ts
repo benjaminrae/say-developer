@@ -2,7 +2,7 @@ import { CreateTermCommandHandler } from './create-term-command.handler';
 import { CreateTermCommand } from './create-term.command';
 import { TermsRepository } from '../domain/terms.repository';
 import { Term } from '../domain/term';
-import { UuidService } from './uuid.service';
+import { UuidService } from '../../shared/uuid.service';
 
 describe('CreateTermCommandHandler', () => {
     const term = 'Git';

@@ -4,8 +4,10 @@ import { CreateTermDto } from '../../src/terms/infrastructure/http/dtos/create-t
 import { TermsModule } from '../../src/terms/infrastructure/terms.module';
 import { TermsKeys } from '../../src/terms/infrastructure/terms.keys';
 import { TermsRepository } from '../../src/terms/domain/terms.repository';
-import { UuidService } from '../../src/terms/application/uuid.service';
+import { UuidService } from '../../src/shared/uuid.service';
 import { Term } from '../../src/terms/domain/term';
+import { SharedKeys } from '../../src/shared/infrastructure/shared.keys';
+import { SharedModule } from '../../src/shared/infrastructure/shared.module';
 
 describe('Create Term Feature', () => {
     let controller: CreateTermController;
@@ -20,9 +22,9 @@ describe('Create Term Feature', () => {
             newUuid: jest.fn(),
         };
         const module: TestingModule = await Test.createTestingModule({
-            imports: [TermsModule],
+            imports: [TermsModule, SharedModule],
         })
-            .overrideProvider(TermsKeys.UUID_SERVICE)
+            .overrideProvider(SharedKeys.UUID_SERVICE)
             .useValue(uuidService)
             .overrideProvider(TermsKeys.TERMS_REPOSITORY)
             .useValue(repository)
