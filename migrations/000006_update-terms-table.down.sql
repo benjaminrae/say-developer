@@ -1,0 +1,2 @@
+ALTER TABLE terms
+DROP UNIQUE (raw);

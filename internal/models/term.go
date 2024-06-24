@@ -3,7 +3,6 @@ package models
 import (
 	"context"
 	"database/sql"
-	"fmt"
 	"strings"
 
 	"github.com/google/uuid"
@@ -20,11 +19,9 @@ type Term struct {
 }
 
 func CreateTerm(db *sql.DB, term *Term) (sql.Result, error) {
-	fmt.Println(term.Raw)
 	if term.Words == nil {
 		term.Words = strings.Split(term.Raw, " ")
 	}
-	fmt.Println(term.Raw)
 
 	if term.Aliases == nil {
 		term.Aliases = []string{}
@@ -41,4 +38,15 @@ func CreateTerm(db *sql.DB, term *Term) (sql.Result, error) {
 		term.Aliases,
 	)
 	return result, err
+}
+
+func TermExists(db *sql.DB, term *Term) (bool, error) {
+	var termExists bool
+
+	err := db.QueryRowContext(context.Background(),
+		"SELECT EXISTS(SELECT 1 FROM terms WHERE raw = $1)",
+		term.Raw,
+	).Scan(&termExists)
+
+	return termExists, err
 }
