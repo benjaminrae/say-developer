@@ -1,6 +1,10 @@
 package server
 
 import (
+	"fmt"
+	"github.com/benjaminrae/say-developer/internal/auth"
+	"github.com/benjaminrae/say-developer/internal/models"
+	"github.com/google/uuid"
 	"io"
 	"net/http"
 
@@ -8,6 +12,27 @@ import (
 )
 
 func (s *Server) UploadPronunciationHandler(c echo.Context) error {
+
+	sessionInterface := c.Get("session")
+	session, ok := sessionInterface.(auth.Session)
+
+	if !ok {
+		return c.String(http.StatusUnauthorized, "Invalid session")
+	}
+
+	pronunciation := &models.Pronunciation{
+		Id:        uuid.New(),
+		CreatedBy: session.UserId,
+	}
+
+	fmt.Print(pronunciation)
+
+	if err := c.Bind(pronunciation); err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	fmt.Print(pronunciation)
+
 	file, err := c.FormFile("file")
 
 	if err != nil {
@@ -30,6 +55,14 @@ func (s *Server) UploadPronunciationHandler(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.String(http.StatusOK, output.UploadID)
+	pronunciation.PublicUrl = output.Location
+
+	result, err := models.CreatePronunciation(s.db.GetDb(), pronunciation)
+
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(http.StatusCreated, result)
 
 }

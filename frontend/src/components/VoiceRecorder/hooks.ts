@@ -1,6 +1,18 @@
-import { useEffect, useState } from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
-export const useMicrophone = () => {
+export type Microphone =
+  {
+    isRecording: boolean;
+    recorder: MediaRecorder | undefined;
+    audioURL: string | null;
+    startRecording: () => void;
+    hasPermission: boolean;
+    audio: Blob | undefined;
+    error: Error | null;
+    stopRecording: () => void
+  }
+
+export const useMicrophone = (): Microphone => {
   const [hasPermission, setHasPermission] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [isRecording, setIsRecording] = useState(false);
@@ -25,7 +37,7 @@ export const useMicrophone = () => {
             console.log(event);
           };
           mediaRecorder.onstop = () => {
-            const recordedBlob = new Blob(chunks, { type: 'audio/wav' });
+            const recordedBlob = new Blob(chunks, {type: 'audio/wav'});
             setAudioURL(URL.createObjectURL(recordedBlob));
             setAudio(recordedBlob);
           };
@@ -42,16 +54,16 @@ export const useMicrophone = () => {
     }
   }, []);
 
-  const startRecording = () => {
+  const startRecording = useCallback(() => {
     setAudioURL(null);
     setIsRecording(true);
     recorder?.start();
-  };
+  }, [recorder]);
 
-  const stopRecording = () => {
+  const stopRecording = useCallback(() => {
     setIsRecording(false);
     recorder?.stop();
-  };
+  }, [recorder]);
 
   return {
     hasPermission,

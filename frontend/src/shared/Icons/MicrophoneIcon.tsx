@@ -1,7 +1,7 @@
 import { useIconSize } from './hooks';
 import { IconProps } from './types';
 
-export const Microphone = ({ color, size }: IconProps) => {
+export const MicrophoneIcon = ({ color, size }: IconProps) => {
   const iconSize = useIconSize(size ?? 'md');
 
   return (

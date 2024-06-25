@@ -3,15 +3,16 @@ package models
 import (
 	"context"
 	"database/sql"
+	"github.com/google/uuid"
 )
 
 type Pronunciation struct {
-	Id        string `json:"id"`
-	TermId    string `json:"termId"`
-	PublicUrl string `json:"publicUrl"`
-	CreatedBy string `json:"createdBy"`
-	FileName  string `json:"fileName"`
-	MimeType  string `json:"mimeType"`
+	Id        uuid.UUID `json:"id"`
+	TermId    uuid.UUID `json:"termId" form:"termId"`
+	PublicUrl string    `json:"publicUrl"`
+	CreatedBy string    `json:"createdBy"`
+	FileName  string    `json:"fileName" form:"fileName"`
+	MimeType  string    `json:"mimeType" form:"mimeType"`
 }
 
 func CreatePronunciation(db *sql.DB, pronunciation *Pronunciation) (sql.Result, error) {
