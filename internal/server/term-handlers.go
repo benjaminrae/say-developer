@@ -23,8 +23,6 @@ func (s *Server) CreateTermHandler(c echo.Context) error {
 		return c.String(http.StatusUnauthorized, "Invalid session")
 	}
 
-	fmt.Println(session)
-
 	term := &models.Term{
 		Id:        uuid.New(),
 		CreatedBy: session.UserId,
@@ -35,6 +33,16 @@ func (s *Server) CreateTermHandler(c echo.Context) error {
 	}
 
 	db := s.db.GetDb()
+
+	termExists, err := models.TermExists(db, term)
+
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	if termExists {
+		return c.String(http.StatusConflict, fmt.Sprintf("Term %v already exists", term.Raw))
+	}
 
 	result, err := models.CreateTerm(db, term)
 
