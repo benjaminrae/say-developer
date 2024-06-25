@@ -23,6 +23,7 @@ export const PronouncePage = () => {
   const fileName = `${term}-${Date.now()}.wav`;
   const {handleSubmit} = useForm<NewPronunciation>({
     defaultValues: {
+      rawTerm: term,
       fileName: fileName,
       mimeType: mimeType
     }
