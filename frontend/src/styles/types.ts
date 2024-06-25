@@ -1,1 +1,1 @@
-export type Variant = 'primary' | 'secondary' | 'stroke' | 'ghost';
+export type Variant = 'primary' | 'secondary' | 'stroke' | 'ghost' | 'danger';

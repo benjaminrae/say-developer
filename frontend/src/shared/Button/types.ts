@@ -7,11 +7,14 @@ export type NativeButtonProps = React.DetailedHTMLProps<
   HTMLButtonElement
 >;
 
+export type Animations = "pulse"
+
 export type ButtonProps = NativeButtonProps & {
   variant?: Variant;
   leftIcon?: Icon;
   rightIcon?: Icon;
   size?: Size;
+  animation?: Animations;
 };
 
 export type ButtonStyledProps = ButtonProps;

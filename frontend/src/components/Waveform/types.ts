@@ -19,4 +19,5 @@ export type BarProps = {
   canvasCtx: CanvasRenderingContext2D;
   dataArray: Uint8Array;
   bufferLength: number;
+  color: string;
 };

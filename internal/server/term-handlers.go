@@ -50,7 +50,7 @@ func (s *Server) CreateTermHandler(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusAccepted, result)
+	return c.JSON(http.StatusCreated, result)
 }
 
 func (s *Server) SearchTermHandler(c echo.Context) error {
@@ -165,8 +165,11 @@ func (s *Server) GetTermHandler(c echo.Context) error {
 	term := models.Term{}
 
 	result.Next()
-	result.Scan(&term.Id, &term.Raw, pq.Array(&term.Words), &term.Phonetic, &term.Description, &term.CreatedBy, pq.Array(&term.Aliases))
+	err = result.Scan(&term.Id, &term.Raw, pq.Array(&term.Words), &term.Phonetic, &term.Description, &term.CreatedBy, pq.Array(&term.Aliases))
+
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
 
 	return c.JSON(http.StatusOK, term)
-
 }

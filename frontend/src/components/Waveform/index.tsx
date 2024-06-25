@@ -1,37 +1,34 @@
-import { useEffect } from 'react';
-import { animateBars } from './logic.helper';
-import { WaveFormProps } from './types';
+import React, {useEffect} from 'react';
+import {animateBars} from './logic.helper';
+import {WaveFormProps} from './types';
+import {WaveformCanvas} from "./Waveform.styled.tsx";
+import {useTheme} from "styled-components";
 
-export const WaveForm: React.FC<WaveFormProps> = ({
-  analyzer,
-  canvas,
-  canvasCtx,
-  canvasRef,
-  dataArray,
-  bufferLength,
-}) => {
+export const WaveForm: React.FC<WaveFormProps> = (
+  {
+    analyzer,
+    canvas,
+    canvasCtx,
+    canvasRef,
+    dataArray,
+    bufferLength,
+  }) => {
+  const theme = useTheme()
   useEffect(() => {
+    const color = theme.colors.accent.secondary;
     if (!canvas || !analyzer) return;
     const animate = () => {
       requestAnimationFrame(animate);
       canvas.width = canvas.width;
-      animateBars({ analyzer, canvas, canvasCtx, dataArray, bufferLength });
+      animateBars({analyzer, canvas, canvasCtx, dataArray, bufferLength, color});
     };
 
     animate();
   }, [dataArray, analyzer, bufferLength]);
 
   return (
-    <canvas
-      style={{
-        position: 'absolute',
-        top: '0',
-        left: '0',
-        zIndex: '-10',
-      }}
+    <WaveformCanvas
       ref={canvasRef}
-      width={window.innerWidth}
-      height={window.innerHeight}
     />
   );
 };
