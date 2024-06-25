@@ -21,7 +21,7 @@ export const HomePage = () => {
               words={[
                 'polymorphism?',
                 'inheritance?',
-                'asyncronous?',
+                'asynchronous?',
                 'multithreading?',
                 'instantiation?',
                 'recursion?',
