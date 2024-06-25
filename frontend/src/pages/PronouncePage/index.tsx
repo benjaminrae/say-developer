@@ -9,6 +9,9 @@ import {NewPronunciation} from "../../domains/pronunciations/types.ts";
 import {useGetTerm} from "../../domains/terms/hooks.ts";
 import {useHandleFormSubmit} from "./hooks.ts";
 import {useMicrophone} from "../../components/VoiceRecorder/hooks.ts";
+import {Flex} from "../../shared/Flex";
+import {XMark} from "../../shared/Icons/XMark.tsx";
+import {Tick} from "../../shared/Icons/Tick.tsx";
 
 export const PronouncePage = () => {
   const {term} = useParams();
@@ -33,17 +36,28 @@ export const PronouncePage = () => {
     await save({...pronunciation, file, termId: data!.id})
   }
 
+  const recordingTimeInMs = 3000;
+  const handleCancelClick = () => {
+    microphone.resetMicrophone();
 
+  }
   return (
     <Page pageTitle={`Pronounce "${term}"`}>
       <form onSubmit={handleSubmit(saveWithAudio)}>
         <h1>Pronounce "{term}"</h1>
         <Divider/>
-        <VoiceRecorder microphone={microphone}/>
-        <Spacer size="xl"/>
-        <Button>
-          Save Pronunciation
-        </Button>
+        <Flex flexDirection="column" alignItems="center">
+          <VoiceRecorder microphone={microphone} recordingTime={recordingTimeInMs}/>
+          <Spacer size="xl"/>
+          <Flex gap="1rem">
+            <Button type="button" variant="danger" leftIcon={XMark} onClick={handleCancelClick}>
+              Cancel
+            </Button>
+            <Button disabled={microphone.audio === null} leftIcon={Tick} style={{}}>
+              Save
+            </Button>
+          </Flex>
+        </Flex>
       </form>
     </Page>
   );

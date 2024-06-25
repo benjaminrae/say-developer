@@ -7,9 +7,10 @@ export type Microphone =
     audioURL: string | null;
     startRecording: () => void;
     hasPermission: boolean;
-    audio: Blob | undefined;
+    audio: Blob | null;
     error: Error | null;
-    stopRecording: () => void
+    stopRecording: () => void;
+    resetMicrophone: () => void;
   }
 
 export const useMicrophone = (): Microphone => {
@@ -17,7 +18,7 @@ export const useMicrophone = (): Microphone => {
   const [error, setError] = useState<Error | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [recorder, setMediaRecorder] = useState<MediaRecorder>();
-  const [audio, setAudio] = useState<Blob>();
+  const [audio, setAudio] = useState<Blob | null>(null);
   const [audioURL, setAudioURL] = useState<string | null>(null);
 
   useEffect(() => {
@@ -65,6 +66,12 @@ export const useMicrophone = (): Microphone => {
     recorder?.stop();
   }, [recorder]);
 
+  const resetMicrophone = useCallback(() => {
+    stopRecording()
+    setAudioURL(null);
+    setAudio(null);
+  }, [])
+
   return {
     hasPermission,
     error,
@@ -74,6 +81,7 @@ export const useMicrophone = (): Microphone => {
     stopRecording,
     audioURL,
     audio,
+    resetMicrophone
   };
 };
 

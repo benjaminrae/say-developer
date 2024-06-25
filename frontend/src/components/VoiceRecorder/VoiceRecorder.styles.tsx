@@ -5,6 +5,8 @@ export const VoiceRecorderWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100%;
+  position: relative;
+  padding: 1rem;
 `;
 
 export const OnAir = styled.div<{ isRecording: boolean }>`
