@@ -1,3 +1,5 @@
+import {Pronunciation} from "../pronunciations/types.ts";
+
 export type Term = {
   id: string;
   raw: string;
@@ -6,6 +8,10 @@ export type Term = {
   aliases: string[];
   createdBy: string;
 };
+
+export type TermWithPronunciations = Term & {
+  pronunciations: Pronunciation[]
+}
 
 export type NewTerm = {
   raw: string;

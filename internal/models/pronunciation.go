@@ -8,11 +8,20 @@ import (
 
 type Pronunciation struct {
 	Id        uuid.UUID `json:"id"`
-	TermId    uuid.UUID `json:"termId" form:"termId"`
-	PublicUrl string    `json:"publicUrl"`
-	CreatedBy string    `json:"createdBy"`
-	FileName  string    `json:"fileName" form:"fileName"`
-	MimeType  string    `json:"mimeType" form:"mimeType"`
+	TermId    uuid.UUID `json:"termId" json:"term_id" form:"termId"`
+	PublicUrl string    `json:"publicUrl" json:"public_url"`
+	CreatedBy string    `json:"createdBy" json:"created_by"`
+	FileName  string    `json:"fileName" json:"file_name" form:"fileName"`
+	MimeType  string    `json:"mimeType" json:"mime_type" form:"mimeType"`
+}
+
+type NestedPronunciation struct {
+	Id        uuid.UUID `json:"id"`
+	TermId    uuid.UUID `json:"term_id"`
+	PublicUrl string    `json:"public_url"`
+	CreatedBy string    `json:"created_by"`
+	FileName  string    `json:"file_name"`
+	MimeType  string    `json:"mime_type"`
 }
 
 func CreatePronunciation(db *sql.DB, pronunciation *Pronunciation) (sql.Result, error) {

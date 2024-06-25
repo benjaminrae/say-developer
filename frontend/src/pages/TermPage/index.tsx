@@ -1,11 +1,11 @@
-import { Link, useParams } from 'react-router-dom';
-import { Page } from '../../components/Page';
-import { useGetTerm } from '../../domains/terms/hooks';
+import {Link, useParams} from 'react-router-dom';
+import {Page} from '../../components/Page';
+import {useGetTermWithPronunciations} from '../../domains/terms/hooks';
 
 export const TermPage = () => {
-  const { term } = useParams();
+  const {term} = useParams();
 
-  const { data } = useGetTerm(term ?? '');
+  const {data} = useGetTermWithPronunciations(term ?? '');
   return (
     <Page pageTitle={term}>
       {data && (
