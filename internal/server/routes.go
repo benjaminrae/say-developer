@@ -48,6 +48,9 @@ func (s *Server) RegisterRoutes() http.Handler {
 	router.POST("/terms", s.CreateTermHandler)
 	router.GET("/terms", s.SearchTermHandler)
 	router.GET("/terms/:term", s.GetTermHandler)
+	router.GET("/terms/:term/pronunciations", s.GetTermWithPronunciations)
+
+	router.GET("/files/:fileId/url", s.GetPronunciationUrlForFileById)
 
 	router.POST("/pronunciations", s.UploadPronunciationHandler)
 

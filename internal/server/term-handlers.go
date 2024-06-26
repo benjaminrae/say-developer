@@ -173,3 +173,46 @@ func (s *Server) GetTermHandler(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, term)
 }
+
+func (s *Server) GetTermWithPronunciations(c echo.Context) error {
+	termQuery := c.Param("term")
+
+	db := s.db.GetDb()
+
+	result, err := db.QueryContext(context.Background(), `
+		SELECT t.id, raw, words, phonetic, description, t.created_by, aliases,
+		json_agg(p) as pronunciations
+		FROM terms AS t
+		LEFT JOIN pronunciations AS p on t.id = p.term_id
+		WHERE t.raw = $1
+		GROUP BY t.id, t.raw;
+	`, termQuery)
+
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	defer result.Close()
+
+	term := models.Term{}
+
+	result.Next()
+
+	var rawPronunciations []byte
+
+	err = result.Scan(&term.Id, &term.Raw, pq.Array(&term.Words), &term.Phonetic, &term.Description, &term.CreatedBy, pq.Array(&term.Aliases), &rawPronunciations)
+
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	pronunciations, err := models.NestedPronunciationsToPronunciations(rawPronunciations)
+
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	term.Pronunciations = pronunciations
+
+	return c.JSON(http.StatusOK, term)
+}

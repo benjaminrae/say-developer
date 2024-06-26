@@ -9,13 +9,14 @@ import (
 )
 
 type Term struct {
-	Id          uuid.UUID `json:"id"`
-	Raw         string    `json:"raw"`
-	Words       []string  `json:"words"`
-	Phonetic    string    `json:"phonetic"`
-	Description string    `json:"description"`
-	CreatedBy   string    `json:"createdBy"`
-	Aliases     []string  `json:"aliases"`
+	Id             uuid.UUID       `json:"id"`
+	Raw            string          `json:"raw"`
+	Words          []string        `json:"words"`
+	Phonetic       string          `json:"phonetic"`
+	Description    string          `json:"description"`
+	CreatedBy      string          `json:"createdBy"`
+	Aliases        []string        `json:"aliases"`
+	Pronunciations []Pronunciation `json:"pronunciations"`
 }
 
 func CreateTerm(db *sql.DB, term *Term) (sql.Result, error) {

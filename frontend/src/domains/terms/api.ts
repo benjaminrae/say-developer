@@ -1,5 +1,5 @@
 import {sayDeveloperRequest} from '../api/request';
-import {NewTerm, PaginatedTerms, SearchTermsQuery, Term} from './types';
+import {NewTerm, PaginatedTerms, SearchTermsQuery, Term, TermWithPronunciations} from './types';
 import {isAxiosError} from "axios";
 
 import {TermAlreadyExistsError} from "./errors/TermAlreadyExistsError.ts";
@@ -42,3 +42,9 @@ export const getTerm = async (term: string) => {
 
   return data;
 };
+
+export const getTermWithPronunciations = async (term: string) => {
+  const {data} = await sayDeveloperRequest.get<TermWithPronunciations>(`/terms/${term}/pronunciations`);
+
+  return data;
+}
