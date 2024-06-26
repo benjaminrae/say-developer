@@ -49,7 +49,7 @@ func (s *Server) UploadPronunciationHandler(c echo.Context) error {
 
 	fileBytes, _ := io.ReadAll(src)
 
-	output, err := s.storage.UploadFile(fileBytes, file.Filename, file.Header.Get("Content-Type"))
+	output, err := s.storage.UploadFile(fileBytes, pronunciation.Id, file.Header.Get("Content-Type"))
 
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
@@ -64,4 +64,27 @@ func (s *Server) UploadPronunciationHandler(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusCreated, result)
+}
+
+func (s *Server) GetPronunciationUrlForFileById(c echo.Context) error {
+	fileId := c.Param("fileId")
+	fmt.Println(fileId)
+
+	parsedId, err := uuid.Parse(fileId)
+
+	if err != nil {
+		return c.String(http.StatusBadRequest, err.Error())
+	}
+
+	twoHoursInMs := 3600000
+	url, err := s.storage.GetPreSignedUrl(parsedId, twoHoursInMs)
+
+	fmt.Println(url)
+
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	c.Response().Header().Set("Cache-Control", fmt.Sprintf("max-age=%d", twoHoursInMs))
+	return c.String(http.StatusOK, url)
 }

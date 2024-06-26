@@ -9,3 +9,9 @@ export const createPronunciation = async (newPronunciation: NewPronunciation) =>
 
   return data;
 }
+
+export const getPronunciationPreSignedUrlByFilename = async (fileId: string) => {
+  const {data} = await sayDeveloperRequest.get<string>(`/files/${fileId}/url`);
+
+  return data;
+}
