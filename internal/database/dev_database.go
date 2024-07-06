@@ -4,6 +4,8 @@
 package database
 
 import (
+	"context"
+	"fmt"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/modules/postgres"
 	"github.com/testcontainers/testcontainers-go/wait"
@@ -12,6 +14,7 @@ import (
 )
 
 func init() {
+	fmt.Println("Starting PostgreSQL Dev")
 	_, err := startDatabase()
 
 	if err != nil {
@@ -23,7 +26,7 @@ func startDatabase() (testcontainers.Container, error) {
 	ctx := context.Background()
 	container, err := postgres.Run(ctx,
 		"docker.io/postgres:16-alpine",
-		postgres.WithInitScripts(filepath.Join("..", "..", "migrations")),
+		postgres.WithInitScripts(filepath.Join("migrations")),
 		postgres.WithDatabase(database),
 		postgres.WithUsername(username),
 		postgres.WithPassword(password),
@@ -38,7 +41,7 @@ func startDatabase() (testcontainers.Container, error) {
 		return nil, err
 	}
 
-	ConnectionString, err = container.ConnectionString(ctx)
+	connectionString, err = container.ConnectionString(ctx)
 
 	if err != nil {
 		return nil, err

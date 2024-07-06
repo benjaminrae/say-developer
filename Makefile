@@ -9,7 +9,7 @@ run:
 	go run cmd/api/main.go
 
 run-dev:
-	go run cmd/api/main.go -tags dev
+	go run -tags dev cmd/api/main.go
 
 run-cli:
 	go run cmd/cli/main.go

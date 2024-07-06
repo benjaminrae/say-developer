@@ -15,6 +15,7 @@ var (
 	address  = os.Getenv("REDIS_ADDRESS")
 	// TODO: database from env
 	// database = os.Getenv("REDIS_DATABASE")
+	connectionString string
 )
 
 type Service interface {
@@ -28,7 +29,7 @@ type service struct {
 
 func New() Service {
 	redisClient := redis.NewClient(&redis.Options{
-		Addr:     address,
+		Addr:     getAddress(),
 		Password: password,
 		DB:       0,
 	})
@@ -36,6 +37,20 @@ func New() Service {
 		redis: redisClient,
 	}
 	return s
+}
+
+func getAddress() string {
+	if connectionString != "" {
+		url, err := redis.ParseURL(connectionString)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		return url.Addr
+	}
+
+	return address
 }
 
 func (s *service) GetClient() *redis.Client {

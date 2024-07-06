@@ -30,7 +30,7 @@ var (
 	username         = os.Getenv("DB_USERNAME")
 	port             = os.Getenv("DB_PORT")
 	host             = os.Getenv("DB_HOST")
-	ConnectionString string
+	connectionString string
 )
 
 func New() Service {
@@ -84,8 +84,9 @@ func (s *service) Health() (string, error) {
 }
 
 func getConnectionString() string {
-	if ConnectionString != "" {
-		return ConnectionString
+	fmt.Println(connectionString)
+	if connectionString != "" {
+		return connectionString
 	}
 
 	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", username, password, host, port, database)
@@ -93,6 +94,7 @@ func getConnectionString() string {
 
 func open() *sql.DB {
 	connStr := getConnectionString()
+	fmt.Println(connStr)
 
 	log.Print("Opening DB connection")
 
