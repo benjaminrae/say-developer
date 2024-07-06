@@ -29,7 +29,7 @@ func NewServer() *http.Server {
 		storage: storage.New(),
 	}
 
-	auth.NewAuth()
+	auth.New()
 
 	server := &http.Server{
 		Addr:         fmt.Sprintf(":%d", NewServer.port),

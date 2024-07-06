@@ -44,7 +44,7 @@ const (
 	IsProd = false
 )
 
-func NewAuth() {
+func New() {
 
 	domain := os.Getenv("SERVICE_URL")
 	googleClientId := os.Getenv("GOOGLE_CLIENT_ID")
