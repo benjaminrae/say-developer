@@ -20,7 +20,7 @@ type Server struct {
 	storage storage.Service
 }
 
-func NewServer() *http.Server {
+func New() *http.Server {
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
 	NewServer := &Server{
 		port:    port,
