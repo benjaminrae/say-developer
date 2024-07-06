@@ -25,11 +25,12 @@ type service struct {
 }
 
 var (
-	database = os.Getenv("DB_DATABASE")
-	password = os.Getenv("DB_PASSWORD")
-	username = os.Getenv("DB_USERNAME")
-	port     = os.Getenv("DB_PORT")
-	host     = os.Getenv("DB_HOST")
+	database         = os.Getenv("DB_DATABASE")
+	password         = os.Getenv("DB_PASSWORD")
+	username         = os.Getenv("DB_USERNAME")
+	port             = os.Getenv("DB_PORT")
+	host             = os.Getenv("DB_HOST")
+	ConnectionString string
 )
 
 func New() Service {
@@ -83,6 +84,10 @@ func (s *service) Health() (string, error) {
 }
 
 func getConnectionString() string {
+	if ConnectionString != "" {
+		return ConnectionString
+	}
+
 	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", username, password, host, port, database)
 }
 

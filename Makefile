@@ -8,6 +8,9 @@ build:
 run:
 	go run cmd/api/main.go
 
+run-dev:
+	go run cmd/api/main.go -tags dev
+
 run-cli:
 	go run cmd/cli/main.go
 
