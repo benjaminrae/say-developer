@@ -1,7 +1,7 @@
-import { mockLocalStorage } from '../../__mocks__/localStorage';
-import { THEME_STORAGE_KEY } from './constants';
-import { getSavedUserTheme, isValidTheme, saveUserTheme } from './logic.helper';
-import { Theme } from './types';
+import { mockLocalStorage } from '../../__mocks__/localStorage.ts';
+import { THEME_STORAGE_KEY } from '../../../components/ThemeProvider/constants.ts';
+import { getSavedUserTheme, isValidTheme, saveUserTheme } from '../../../components/ThemeProvider/logic.helper.ts';
+import { Theme } from '../../../components/ThemeProvider/types.ts';
 
 Object.defineProperty(window, 'localStorage', {
   value: mockLocalStorage,

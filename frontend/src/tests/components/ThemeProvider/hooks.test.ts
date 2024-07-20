@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
-import { usePreferredTheme } from './hooks';
-import { getSavedUserTheme, saveUserTheme } from './logic.helper';
+import { usePreferredTheme } from '../../../components/ThemeProvider/hooks.ts';
+import { getSavedUserTheme, saveUserTheme } from '../../../components/ThemeProvider/logic.helper.ts';
 
 vi.mock('./logic.helper', () => ({
   getSavedUserTheme: vi.fn(),
