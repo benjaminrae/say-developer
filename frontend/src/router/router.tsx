@@ -1,34 +1,34 @@
-import { createBrowserRouter } from 'react-router-dom';
-import { MainLayout } from '../components/MainLayout';
-import { HomePage } from '../pages/HomePage';
-import { NewTermPage } from '../pages/NewTermPage';
-import { PronouncePage } from '../pages/PronouncePage';
-import { SearchResultsPage } from '../pages/SearchResultsPage';
-import { TermPage } from '../pages/TermPage';
+import {createBrowserRouter} from 'react-router-dom';
+import {MainLayout} from '../components/MainLayout';
+import {HomePage} from '../pages/HomePage';
+import {NewTermPage} from '../pages/NewTermPage';
+import {PronouncePage} from '../pages/PronouncePage';
+import {SearchResultsPage} from '../pages/SearchResultsPage';
+import {TermPage} from '../pages/TermPage';
 
 export const router = createBrowserRouter([
   {
-    element: <MainLayout />,
+    element: <MainLayout/>,
     children: [
       {
         path: '/',
-        element: <HomePage />,
+        element: <HomePage/>,
       },
       {
         path: '/search',
-        element: <SearchResultsPage />,
+        element: <SearchResultsPage/>,
       },
       {
         path: '/new-term',
-        element: <NewTermPage />,
+        element: <NewTermPage/>,
       },
       {
         path: '/term/:term',
-        element: <TermPage />,
+        element: <TermPage/>,
       },
       {
         path: '/pronounce/:term',
-        element: <PronouncePage />,
+        element: <PronouncePage/>,
       },
     ],
   },

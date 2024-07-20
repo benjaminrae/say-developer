@@ -39,6 +39,8 @@ export const TermSearchRow = styled.div<{ $isFocused?: boolean }>`
 `;
 
 export const TermSearchOpenRow = styled(TermSearchRow)`
+  color: ${(props) => props.theme.colors.black};
+
   &:hover {
     background-color: ${(props) => props.theme.colors.hover.primary};
   }
