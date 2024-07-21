@@ -1,6 +1,6 @@
 import { UseQueryOptions, useMutation, useQuery } from 'react-query';
 import { QUERY_KEYS } from '../../libs/react-query';
-import {createTerm, getTerm, getTermWithPronunciations, searchTerms} from './api';
+import {createTerm, getRecentTerms, getTerm, getTermWithPronunciations, searchTerms} from './api';
 import {PaginatedTerms, SearchTermsQuery, Term, TermWithPronunciations} from './types';
 
 export const useSearchTerms = (
@@ -25,4 +25,8 @@ export const useGetTerm = (term: string, options?: UseQueryOptions<Term>) => {
 
 export const useGetTermWithPronunciations = (term: string, options?: UseQueryOptions<TermWithPronunciations>) => {
   return useQuery([QUERY_KEYS.GET_TERM_WITH_PRONUNCIATIONS, term, options], () => getTermWithPronunciations(term))
+}
+
+export const useGetRecentTerms = (options?: UseQueryOptions<string[]>) => {
+  return useQuery([QUERY_KEYS.GET_RECENT_TERMS, options], () => getRecentTerms());
 }

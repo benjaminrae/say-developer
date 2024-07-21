@@ -48,3 +48,9 @@ export const getTermWithPronunciations = async (term: string) => {
 
   return data;
 }
+
+export const getRecentTerms = async () => {
+  const {data} = await sayDeveloperRequest.get<string[]>('/terms/recent');
+
+  return data
+}

@@ -3,14 +3,15 @@ package models
 import (
 	"context"
 	"database/sql"
+	"github.com/go-redis/redis/v8"
 	"strings"
 
 	"github.com/google/uuid"
 )
 
 type Term struct {
-	Id             uuid.UUID       `json:"id"`
-	Raw            string          `json:"raw"`
+	Id             uuid.UUID       `json:"id" redis:"id"`
+	Raw            string          `json:"raw" redis:"raw"`
 	Words          []string        `json:"words"`
 	Phonetic       string          `json:"phonetic"`
 	Description    string          `json:"description"`
@@ -50,4 +51,24 @@ func TermExists(db *sql.DB, term *Term) (bool, error) {
 	).Scan(&termExists)
 
 	return termExists, err
+}
+
+func AddToRecentTerms(redis *redis.Client, term *Term) error {
+	_, err := redis.LPush(context.Background(), "terms:recent", term.Raw).Result()
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func GetRecentTerms(redis *redis.Client) ([]string, error) {
+	rows, err := redis.LRange(context.Background(), "terms:recent", 0, 20).Result()
+
+	if err != nil {
+		return nil, err
+	}
+
+	return rows, nil
 }

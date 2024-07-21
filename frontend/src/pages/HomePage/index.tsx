@@ -1,8 +1,9 @@
-import { TermSearch } from '../../components/TermSearch';
-import { WordAutoCarousel } from '../../components/WordAutoCarousel';
-import { useBreakpoints } from '../../hooks/useBreakpoints';
-import { Flex } from '../../shared/Flex';
-import { HomePageStyled, HomePageTitle } from './HomePageStyled';
+import {TermSearch} from '../../components/TermSearch';
+import {WordAutoCarousel} from '../../components/WordAutoCarousel';
+import {useBreakpoints} from '../../hooks/useBreakpoints';
+import {Flex} from '../../shared/Flex';
+import {HomePageStyled, HomePageTitle} from './HomePageStyled';
+import {RecentTerms} from "@/components/RecentTerms/recentTerms.tsx";
 
 export const HomePage = () => {
   const { isPhone } = useBreakpoints();
@@ -35,6 +36,7 @@ export const HomePage = () => {
         </Flex>
         <TermSearch />
       </Flex>
+      <RecentTerms />
     </HomePageStyled>
   );
 };

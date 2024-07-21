@@ -50,6 +50,12 @@ func (s *Server) CreateTermHandler(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
+	err = models.AddToRecentTerms(s.redis.GetClient(), term)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	return c.JSON(http.StatusCreated, result)
 }
 
@@ -215,4 +221,14 @@ func (s *Server) GetTermWithPronunciations(c echo.Context) error {
 	term.Pronunciations = pronunciations
 
 	return c.JSON(http.StatusOK, term)
+}
+
+func (s *Server) GetRecentTermsHandler(c echo.Context) error {
+	terms, err := models.GetRecentTerms(s.redis.GetClient())
+
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, terms)
 }
