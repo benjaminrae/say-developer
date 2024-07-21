@@ -12,6 +12,12 @@ import {XMark} from "../../shared/Icons/XMark.tsx";
 import {Tick} from "../../shared/Icons/Tick.tsx";
 import {Button} from '@/components/ui/button.tsx';
 import {Separator} from "@/components/ui/separator.tsx";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from "@/components/ui/accordion.tsx";
 
 export const PronouncePage = () => {
   const {term} = useParams();
@@ -44,8 +50,9 @@ export const PronouncePage = () => {
   }
   return (
     <Page pageTitle={`Pronounce "${term}"`}>
+
       <form onSubmit={handleSubmit(saveWithAudio)}>
-        <h1>Pronounce "{term}"</h1>
+        <h1 className="font-bold text-5xl">Pronounce "{term}"</h1>
         <Separator className="my-2"/>
         <Flex flexDirection="column" alignItems="center">
           <VoiceRecorder microphone={microphone} recordingTime={recordingTimeInMs}/>
@@ -63,6 +70,30 @@ export const PronouncePage = () => {
           </Flex>
         </Flex>
       </form>
+      <aside>
+        <Accordion type="single" collapsible>
+          <AccordionItem value="item-1">
+            <AccordionTrigger>How do I record?</AccordionTrigger>
+            <AccordionContent>
+              You need to click on "Allow" when the browser asks for permission to use the
+              microphone.
+              <br/>
+              <br/>
+              Then, click on the microphone icon to start recording. The recording will stop
+              automatically after 3 seconds.
+              <br/>
+              <br/>
+              You can cancel the recording by clicking on the "Cancel" button.
+              <br/>
+              <br/>
+              Listen to the recording by clicking on the play button.
+              <br/>
+              <br/>
+              If you're happy with the recording, click on the "Save" button.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </aside>
     </Page>
   );
 }
