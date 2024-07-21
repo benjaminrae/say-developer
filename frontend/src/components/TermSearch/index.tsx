@@ -2,7 +2,6 @@ import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSearchTerms } from '../../domains/terms/hooks';
 import { useDebouncedValue } from '../../hooks/useDebouncedValue';
-import { Button } from '../../shared/Button';
 import { Divider } from '../../shared/Divider';
 import { Clock } from '../../shared/Icons/Clock';
 import { Search } from '../../shared/Icons/Search';
@@ -14,6 +13,7 @@ import {
   TermSearchStyled,
 } from './TermSearch.styled';
 import { useCombineSearches, useRecentSearches } from './hooks';
+import {Button} from "@/components/ui/button.tsx";
 
 export type TermSearchResult = {
   term: string;
@@ -65,7 +65,7 @@ export const TermSearch = () => {
           autoCorrect="false"
           onFocus={() => setIsOpen(true)}
         />
-        <Button type="submit" variant="ghost" className="term-search__button">
+        <Button type="submit" variant="ghost">
           Search
         </Button>
       </TermSearchRow>
@@ -78,7 +78,7 @@ export const TermSearch = () => {
               {isRecent ? <Clock color="#000" /> : <Search color="#000" />}
               <TermSearchResult to={`/search?term=${term}`}>{term}</TermSearchResult>
               {isRecent && (
-                <Button variant="ghost" type="button" onClick={() => removeSearch(term)} size="sm">
+                <Button variant="destructive" type="button" onClick={() => removeSearch(term)} className="text-xs">
                   remove
                 </Button>
               )}

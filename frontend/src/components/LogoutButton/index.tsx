@@ -1,8 +1,7 @@
 import { useCallback } from 'react';
-import { useAuthRedirect } from '../../domains/sessions/hooks';
-import { Button } from '../../shared/Button';
-import { ButtonProps } from '../../shared/Button/types';
+import { useAuthRedirect } from '@/domains/sessions/hooks.ts';
 import { useAuth } from '../AuthProvider/hooks';
+import {Button, ButtonProps} from "@/components/ui/button.tsx";
 
 export const LogoutButton = ({ ...props }: Omit<ButtonProps, 'onClick' | 'ref'>) => {
   const { user } = useAuth();
@@ -16,7 +15,7 @@ export const LogoutButton = ({ ...props }: Omit<ButtonProps, 'onClick' | 'ref'>)
   }, [logoutProvider, user]);
 
   return (
-    <Button onClick={handleLogout} {...props}>
+    <Button variant="destructive" onClick={handleLogout} {...props}>
       Logout
     </Button>
   );

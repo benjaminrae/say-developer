@@ -2,9 +2,9 @@ import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import { Page } from '../../components/Page';
 import { NewTerm } from '../../domains/terms/types';
-import { Button } from '../../shared/Button';
 import { Flex } from '../../shared/Flex';
 import { useHandleFormSubmit } from './hooks';
+import {Button} from "@/components/ui/button.tsx";
 
 export const NewTermPage = () => {
   const [searchParams] = useSearchParams();
@@ -30,7 +30,7 @@ export const NewTermPage = () => {
             <label htmlFor="description">Definition</label>
             <textarea id="description" {...register('description')} />
           </Flex>
-          <Button type="submit">Add term</Button>
+          <Button variant="default" type="submit">Add term</Button>
         </Flex>
       </form>
     </Page>

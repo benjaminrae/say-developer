@@ -1,5 +1,4 @@
 import styled, {css} from "styled-components";
-import {Button} from "../../shared/Button";
 import {ToastNotification} from "../ToastProvider/ToastProvider.tsx";
 
 export type ToastWrapperProps = {
@@ -66,4 +65,4 @@ export const ToastText = styled.span({
   flex: 1,
 })
 
-export const ToastDismiss = styled(Button)({})
+export const ToastDismiss = styled.button({})

@@ -1,7 +1,8 @@
 import React, {useEffect} from "react";
 import {ToastNotification} from "../ToastProvider/ToastProvider.tsx";
-import {ToastDismiss, ToastText, ToastWrapper} from "./Toast.styled.tsx";
 import {XMark} from "../../shared/Icons/XMark.tsx";
+import {Button} from "@/components/ui/button.tsx";
+import {ToastText, ToastWrapper} from "./Toast.styled.tsx";
 
 export type ToastProps = {
   toast: ToastNotification;
@@ -28,9 +29,9 @@ export const Toast = ({toast, onClick}: ToastProps): React.ReactElement => {
       <ToastText>
         {toast.text}
       </ToastText>
-      <ToastDismiss onClick={onClick} aria-label="Dismiss" variant="ghost">
+      <Button onClick={onClick} aria-label="Dismiss" variant="ghost">
         <XMark color="#000" size="xl"/>
-      </ToastDismiss>
+      </Button>
     </ToastWrapper>
   )
 }

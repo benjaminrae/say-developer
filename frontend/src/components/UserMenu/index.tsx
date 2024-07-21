@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Divider } from '../../shared/Divider';
-import { Spacer } from '../../shared/Spacer';
+import { Divider } from '@/shared/Divider';
+import { Spacer } from '@/shared/Spacer';
 import { useAuth } from '../AuthProvider/hooks';
 import { Avatar } from '../Avatar';
 import { LogoutButton } from '../LogoutButton';

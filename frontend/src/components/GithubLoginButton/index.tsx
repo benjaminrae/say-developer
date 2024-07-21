@@ -1,13 +1,14 @@
 import { useAuthRedirect } from '../../domains/sessions/hooks';
 import { Github } from '../../shared/Icons/Github';
-import { GithubLoginButtonStyled } from './GithubLoginButton.styles';
+import {Button} from "@/components/ui/button.tsx";
 
 export const GithubLoginButton = () => {
   const { loginWithGithub } = useAuthRedirect();
 
   return (
-    <GithubLoginButtonStyled onClick={loginWithGithub} leftIcon={Github}>
+    <Button onClick={loginWithGithub} >
+      <Github />
       Login with GitHub
-    </GithubLoginButtonStyled>
+    </Button>
   );
 };

@@ -1,10 +1,10 @@
 import {Link, useParams} from 'react-router-dom';
-import {Page} from '../../components/Page';
-import {useGetTermWithPronunciations} from '../../domains/terms/hooks';
-import {Button} from "../../shared/Button";
+import {Page} from '@/components/Page';
+import {useGetTermWithPronunciations} from '@/domains/terms/hooks.ts';
 import {Play} from "../../shared/Icons/Play.tsx";
-import {Pronunciation} from "../../domains/pronunciations/types.ts";
+import {Pronunciation} from "@/domains/pronunciations/types.ts";
 import {useHandlePronunciationPlay} from "./hooks.ts";
+import {Button} from "@/components/ui/button.tsx";
 
 export const TermPage = () => {
   const {term} = useParams();
@@ -35,8 +35,8 @@ export const TermPage = () => {
             termWithPronunciations.pronunciations && (<ul>
               {termWithPronunciations.pronunciations.map((pronunciation) => (
                 <li key={pronunciation.id}>
-                  <Button variant="ghost" onClick={() => handlePlayPronunciation(pronunciation)}>
-                    <Play color="currentColor" size="sm" />
+                  <Button variant="ghost" onClick={() => handlePlayPronunciation(pronunciation)} aria-label="Play">
+                    <Play color="currentColor" size="sm"/>
                   </Button>
                   <span>{pronunciation.fileName} by {pronunciation.createdBy}</span>
                 </li>

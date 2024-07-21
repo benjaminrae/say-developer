@@ -5,6 +5,7 @@ export const TermSearchStyled = styled.form`
   border-radius: ${(props) => props.theme.sizes.borderRadius.md};
   padding: 0.5rem 1rem;
   background-color: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.black};
   display: flex;
   border: 1px solid ${(props) => props.theme.colors.border};
   flex-direction: column;

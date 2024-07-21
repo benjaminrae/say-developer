@@ -1,17 +1,17 @@
 import {useParams} from 'react-router-dom';
-import {Page} from '../../components/Page';
-import {VoiceRecorder} from '../../components/VoiceRecorder';
-import {Divider} from "../../shared/Divider";
-import {Spacer} from "../../shared/Spacer";
-import {Button} from "../../shared/Button";
+import {Page} from '@/components/Page';
+import {VoiceRecorder} from '@/components/VoiceRecorder';
+import {Divider} from "@/shared/Divider";
+import {Spacer} from "@/shared/Spacer";
 import {useForm} from "react-hook-form";
-import {NewPronunciation} from "../../domains/pronunciations/types.ts";
-import {useGetTerm} from "../../domains/terms/hooks.ts";
+import {NewPronunciation} from "@/domains/pronunciations/types.ts";
+import {useGetTerm} from "@/domains/terms/hooks.ts";
 import {useHandleFormSubmit} from "./hooks.ts";
-import {useMicrophone} from "../../components/VoiceRecorder/hooks.ts";
-import {Flex} from "../../shared/Flex";
+import {useMicrophone} from "@/components/VoiceRecorder/hooks.ts";
+import {Flex} from "@/shared/Flex";
 import {XMark} from "../../shared/Icons/XMark.tsx";
 import {Tick} from "../../shared/Icons/Tick.tsx";
+import {Button} from '@/components/ui/button.tsx';
 
 export const PronouncePage = () => {
   const {term} = useParams();
@@ -51,11 +51,12 @@ export const PronouncePage = () => {
           <VoiceRecorder microphone={microphone} recordingTime={recordingTimeInMs}/>
           <Spacer size="xl"/>
           <Flex gap="1rem">
-            <Button type="button" variant="danger" leftIcon={XMark} onClick={handleCancelClick}>
+            <Button type="button" variant="destructive" onClick={handleCancelClick} className="flex flex-row gap-2 justify-center items-center">
+              <XMark color="currentColor" size="xl"/>
               Cancel
             </Button>
-            <Button disabled={microphone.audio === null} leftIcon={Tick} style={{}}>
-              Save
+            <Button disabled={microphone.audio === null} variant="default" className="flex flex-row gap-2 justify-center items-center">
+              <Tick color="currentColor" size="xl"/> Save
             </Button>
           </Flex>
         </Flex>

@@ -1,13 +1,13 @@
 import {useRef} from 'react';
-import {Button} from '../../shared/Button';
 import {MicrophoneIcon} from '../../shared/Icons/MicrophoneIcon.tsx';
-import {Spacer} from '../../shared/Spacer';
+import {Spacer} from '@/shared/Spacer';
 import {WaveForm} from '../Waveform';
 import {useAnalyzer} from '../Waveform/hooks';
 import {VoiceRecorderWrapper} from './VoiceRecorder.styles';
 import {Microphone} from "./hooks.ts";
 import {Play} from "../../shared/Icons/Play.tsx";
-import {Flex} from '../../shared/Flex/index.tsx';
+import {Flex} from '@/shared/Flex';
+import {Button} from "@/components/ui/button.tsx";
 
 export type VoiceRecorderProps = {
   microphone: Microphone;
@@ -48,19 +48,19 @@ export const VoiceRecorder = ({microphone, recordingTime = 3000}: VoiceRecorderP
       <Spacer size="xs"/>
       <Flex gap="1rem">
         {isRecording ? (
-          <Button type="button" arial-label="stop recording" size="xl" animation="pulse"
+          <Button type="button" arial-label="stop recording" variant="destructive"
                   onClick={stopRecording}>
             <MicrophoneIcon color="currentColor" size="xl"/>
           </Button>
         ) : (
-          <Button type="button" variant="primary" aria-label="start recording"
+          <Button type="button" variant="default" aria-label="start recording"
                   onClick={handleRecordingStart}
-                  disabled={!hasPermission} size="xl">
+                  disabled={!hasPermission}>
             <MicrophoneIcon color="currentColor" size="xl"/>
           </Button>
         )}
-        <Button disabled={audioURL === null} type="button" variant="primary"
-                aria-label="preview recording" size="xl" onClick={() => {
+        <Button disabled={audioURL === null} type="button" variant="default"
+                aria-label="preview recording" onClick={() => {
           const audio = new Audio(audioURL!);
 
           audio.play();
