@@ -7,7 +7,7 @@ export const GithubLoginButton = () => {
 
   return (
     <Button onClick={loginWithGithub} >
-      <Github />
+      <Github color="currentColor"/>
       Login with GitHub
     </Button>
   );

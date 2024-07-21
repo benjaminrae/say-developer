@@ -4,6 +4,7 @@ import {Page} from '../../components/Page';
 import {TermSearch} from '../../components/TermSearch';
 import {useSearchTerms} from '../../domains/terms/hooks';
 import {Separator} from "@/components/ui/separator.tsx";
+import {Heading, Paragraph} from "@/shared/Typography";
 
 export const SearchResultsPage = () => {
   const [searchParams] = useSearchParams();
@@ -15,7 +16,9 @@ export const SearchResultsPage = () => {
   return (
     <Page pageTitle={`${term} - Search`}>
       <TermSearch/>
-      <h1>{term}</h1>
+      <Heading level={1}>
+        {term}
+      </Heading>
       <span>{data?.count ?? 0} results found</span>
       <Separator className="my-2"/>
       {data?.count! > 0 && (
@@ -29,7 +32,7 @@ export const SearchResultsPage = () => {
       )}
       {!data?.count && (
         <>
-          <p>Can't find what you're looking for?</p>
+          <Paragraph>Can't find what you're looking for?</Paragraph>
           <Link to={`/new-term?term=${term}`}>Request "{term}" be added to Say.dev</Link>
         </>
       )}
