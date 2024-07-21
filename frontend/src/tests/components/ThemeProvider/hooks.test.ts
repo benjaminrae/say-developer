@@ -1,20 +1,23 @@
-import { renderHook } from '@testing-library/react';
-import { usePreferredTheme } from '../../../components/ThemeProvider/hooks.ts';
-import { getSavedUserTheme, saveUserTheme } from '../../../components/ThemeProvider/logic.helper.ts';
+import {renderHook} from '@testing-library/react';
+import {usePreferredTheme} from '@/components/ThemeProvider/hooks.ts';
+import {vi} from "vitest";
+import {mockLocalStorage} from "@/tests/__mocks__/localStorage.ts";
+import {THEME_STORAGE_KEY} from "@/components/ThemeProvider/constants.ts";
 
-vi.mock('./logic.helper', () => ({
-  getSavedUserTheme: vi.fn(),
-  saveUserTheme: vi.fn(),
-}));
+
+Object.defineProperty(window, 'localStorage', {
+  value: mockLocalStorage,
+});
 
 afterEach(() => {
+  mockLocalStorage.clear();
   vi.clearAllMocks();
 });
 
 describe('usePreferredTheme', () => {
   it('should return the stored theme if a theme is stored', () => {
     const storedTheme = 'dark';
-    vi.mocked(getSavedUserTheme).mockReturnValueOnce(storedTheme);
+    mockLocalStorage.setItem(THEME_STORAGE_KEY, storedTheme);
     window.matchMedia = vi.fn().mockImplementation(() => ({
       matches: false,
       addEventListener: vi.fn(),
@@ -22,10 +25,10 @@ describe('usePreferredTheme', () => {
     }));
 
     const {
-      result: { current },
+      result,
     } = renderHook(() => usePreferredTheme());
 
-    expect(current).toBe(storedTheme);
+    expect(result.current).toBe(storedTheme);
   });
 
   it.each(['dark', 'light'])(
@@ -38,11 +41,11 @@ describe('usePreferredTheme', () => {
       }));
 
       const {
-        result: { current },
+        result: {current},
       } = renderHook(() => usePreferredTheme());
 
       expect(current).toBe(theme);
-      expect(saveUserTheme).toHaveBeenCalledWith(theme);
+      expect(mockLocalStorage.getItem(THEME_STORAGE_KEY)).toBe(theme);
     },
   );
 });

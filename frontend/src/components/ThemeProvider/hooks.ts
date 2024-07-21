@@ -12,6 +12,12 @@ export const usePreferredTheme = () => {
   useEffect(() => {
     const darkThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
+    const savedTheme = getSavedUserTheme();
+
+    if (savedTheme !== undefined) {
+      applyUserTheme(savedTheme);
+    }
+
     darkThemeQuery.addEventListener('change', userThemeListener);
     return () => {
       darkThemeQuery.removeEventListener('change', userThemeListener);
