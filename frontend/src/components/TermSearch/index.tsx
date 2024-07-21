@@ -1,10 +1,9 @@
-import { ChangeEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSearchTerms } from '../../domains/terms/hooks';
-import { useDebouncedValue } from '../../hooks/useDebouncedValue';
-import { Divider } from '../../shared/Divider';
-import { Clock } from '../../shared/Icons/Clock';
-import { Search } from '../../shared/Icons/Search';
+import {ChangeEvent, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useSearchTerms} from '../../domains/terms/hooks';
+import {useDebouncedValue} from '../../hooks/useDebouncedValue';
+import {Clock} from '../../shared/Icons/Clock';
+import {Search} from '../../shared/Icons/Search';
 import {
   TermSearchInput,
   TermSearchOpenRow,
@@ -12,8 +11,9 @@ import {
   TermSearchRow,
   TermSearchStyled,
 } from './TermSearch.styled';
-import { useCombineSearches, useRecentSearches } from './hooks';
+import {useCombineSearches, useRecentSearches} from './hooks';
 import {Button} from "@/components/ui/button.tsx";
+import {Separator} from "@/components/ui/separator.tsx";
 
 export type TermSearchResult = {
   term: string;
@@ -27,16 +27,16 @@ export const TermSearch = () => {
   const [searchTerm, setSearchTerm] = useDebouncedValue('');
   const [isDirty, setIsDirty] = useState(false);
 
-  const handleSearchInputChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+  const handleSearchInputChange = ({target: {value}}: ChangeEvent<HTMLInputElement>) => {
     setIsDirty(true);
     setIsOpen(value.length > 0);
     setSearchInput(value);
     setSearchTerm(value);
   };
 
-  const { data } = useSearchTerms({ term: searchTerm });
+  const {data} = useSearchTerms({term: searchTerm});
 
-  const { recentSearches, saveSearch, removeSearch } = useRecentSearches(searchTerm);
+  const {recentSearches, saveSearch, removeSearch} = useRecentSearches(searchTerm);
 
   const combinedSearches = useCombineSearches(recentSearches, data?.terms || []);
 
@@ -54,10 +54,14 @@ export const TermSearch = () => {
     navigate(`/search?term=${searchInput}`);
   };
 
+  function isNotLastTerm(index: number) {
+    return index !== combinedSearches.length - 1;
+  }
+
   return (
     <TermSearchStyled onSubmit={handleSearchSubmit}>
       <TermSearchRow>
-        <Search color="#000" />
+        <Search color="#000"/>
         <TermSearchInput
           placeholder="Search for a term..."
           value={searchInput}
@@ -72,17 +76,24 @@ export const TermSearch = () => {
 
       {isOpen && (
         <>
-          <Divider />
-          {combinedSearches.map(({ term, isRecent }) => (
-            <TermSearchOpenRow key={term}>
-              {isRecent ? <Clock color="#000" /> : <Search color="#000" />}
-              <TermSearchResult to={`/search?term=${term}`}>{term}</TermSearchResult>
-              {isRecent && (
-                <Button variant="destructive" type="button" onClick={() => removeSearch(term)} className="text-xs">
-                  remove
-                </Button>
-              )}
-            </TermSearchOpenRow>
+          <Separator className="my-1"/>
+          {combinedSearches.map(({term, isRecent}, index) => (
+            <>
+              <div className="flex items-center">
+                {isRecent ? <Clock color="#000" className="mr-2"/> : <Search color="#000"/>}
+                <TermSearchOpenRow key={term} className="flex-1">
+                  <TermSearchResult to={`/search?term=${term}`}>{term}</TermSearchResult>
+                </TermSearchOpenRow>
+                {isRecent && (
+                  <Button variant="ghost" type="button" onClick={() => removeSearch(term)}
+                          className="text-xs">
+                    remove
+                  </Button>
+                )}
+              </div>
+              {isNotLastTerm(index) && <Separator className="my-1"/>
+              }
+            </>
           ))}
         </>
       )}

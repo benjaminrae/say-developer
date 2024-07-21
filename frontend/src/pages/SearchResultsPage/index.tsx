@@ -3,7 +3,7 @@ import {Link} from '../../components/Link';
 import {Page} from '../../components/Page';
 import {TermSearch} from '../../components/TermSearch';
 import {useSearchTerms} from '../../domains/terms/hooks';
-import {Divider} from '../../shared/Divider';
+import {Separator} from "@/components/ui/separator.tsx";
 
 export const SearchResultsPage = () => {
   const [searchParams] = useSearchParams();
@@ -17,7 +17,7 @@ export const SearchResultsPage = () => {
       <TermSearch/>
       <h1>{term}</h1>
       <span>{data?.count ?? 0} results found</span>
-      <Divider/>
+      <Separator className="my-2"/>
       {data?.count! > 0 && (
         <ul>
           {data?.terms.map((term) => (

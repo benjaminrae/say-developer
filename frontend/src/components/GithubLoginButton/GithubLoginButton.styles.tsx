@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import {css} from 'styled-components';
 
 export const GithubLight = css`
   background-color: ${(props) => props.theme.colors.black};
