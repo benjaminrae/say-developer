@@ -30,7 +30,7 @@ export const mainTheme: MainTheme = {
   typography: {
     fonts: {
       stack:
-        'Averta Std, --apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+        'JetBrains Mono, Averta Std, --apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
     },
     sizes: {
       xs: '12px',
