@@ -1,5 +1,15 @@
-import { THEME_STORAGE_KEY } from './constants';
-import { Theme } from './types';
+import {THEME_STORAGE_KEY} from './constants';
+import {Theme} from './types';
+
+export const applyUserTheme = (theme: Theme) => {
+  if (!isValidTheme(theme)) {
+    return;
+  }
+
+  const root = window.document.documentElement;
+  root.classList.remove('light', 'dark');
+  root.classList.add(theme);
+}
 
 export const saveUserTheme = (theme: Theme) => {
   if (!isValidTheme(theme)) {

@@ -1,20 +1,21 @@
-import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
-import { ThemeProvider as SCThemeProvider } from 'styled-components';
-import { themes } from '../../styles/themes';
-import { ThemeContext } from './context';
-import { usePreferredTheme } from './hooks';
-import { saveUserTheme } from './logic.helper';
-import { Theme } from './types';
+import {PropsWithChildren, useCallback, useMemo, useState} from 'react';
+import {ThemeProvider as SCThemeProvider} from 'styled-components';
+import {themes} from '../../styles/themes';
+import {ThemeContext} from './context';
+import {usePreferredTheme} from './hooks';
+import {applyUserTheme, saveUserTheme} from './logic.helper';
+import {Theme} from './types';
 
 type ThemeProviderProps = PropsWithChildren;
 
-export const ThemeProvider = ({ children }: ThemeProviderProps) => {
+export const ThemeProvider = ({children}: ThemeProviderProps) => {
   const [theme, setThemeState] = useState<Theme>(usePreferredTheme());
 
   const setTheme = useCallback(
     (theme: Theme) => {
       setThemeState(theme);
       saveUserTheme(theme);
+      applyUserTheme(theme)
     },
     [setThemeState],
   );
@@ -23,9 +24,10 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setThemeState(newTheme);
     saveUserTheme(newTheme);
+    applyUserTheme(newTheme);
   }, [setThemeState, theme]);
 
-  const value = useMemo(() => ({ setTheme, theme, toggleTheme }), [setTheme, theme, toggleTheme]);
+  const value = useMemo(() => ({setTheme, theme, toggleTheme}), [setTheme, theme, toggleTheme]);
 
   return (
     <ThemeContext.Provider value={value}>

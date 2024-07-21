@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { getSavedUserTheme, saveUserTheme } from './logic.helper';
+import {useEffect, useState} from 'react';
+import {applyUserTheme, getSavedUserTheme, saveUserTheme} from './logic.helper';
 
 export const usePreferredTheme = () => {
   const getCurrentTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -21,12 +21,14 @@ export const usePreferredTheme = () => {
   const savedTheme = getSavedUserTheme();
 
   if (savedTheme !== undefined) {
+    applyUserTheme(savedTheme);
     return savedTheme;
   }
 
   const theme = isDark ? 'dark' : 'light';
 
   saveUserTheme(theme);
+  applyUserTheme(theme);
 
   return theme;
 };
