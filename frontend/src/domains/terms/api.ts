@@ -44,7 +44,7 @@ export const getTerm = async (term: string) => {
 };
 
 export const getTermWithPronunciations = async (term: string) => {
-  const {data} = await sayDeveloperRequest.get<TermWithPronunciations>(`/terms/${term}/pronunciations`);
+  const {data} = await sayDeveloperRequest.get<TermWithPronunciations>(`/terms/${encodeURIComponent(term)}/pronunciations`);
 
   return data;
 }
