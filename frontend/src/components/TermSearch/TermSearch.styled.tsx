@@ -56,7 +56,7 @@ export const TermSearchHeading = styled.div`
 `;
 
 export const TermSearchResult = styled(Link)`
-  all: unset;
   flex: 1;
   cursor: pointer;
+  color: black;
 `;

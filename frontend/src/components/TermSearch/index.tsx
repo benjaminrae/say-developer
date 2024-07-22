@@ -92,9 +92,9 @@ export const TermSearch = () => {
               {combinedSearches.map(({term, isRecent}, index) => (
                 <>
                   <div className="flex items-center self-stretch">
-                    {isRecent ? <Clock color="#000" className="mr-2"/> : <Search color="#000"/>}
+                    {isRecent ? <Clock color="#000" className="mr-2"/> : <Search color="#000"  className="mr-2"/>}
                     <TermSearchOpenRow key={term} className="flex-1">
-                      <TermSearchResult to={`/search?term=${term}`}>{term}</TermSearchResult>
+                      <TermSearchResult className="text-black" to={`/search?term=${encodeURIComponent(term)}`}>{term}</TermSearchResult>
                     </TermSearchOpenRow>
                     {isRecent && (
                       <Button variant="ghost" type="button" onClick={() => removeSearch(term)}
