@@ -51,7 +51,7 @@ export const TermSearch = () => {
         return;
       }
       saveSearch(searchInput);
-      navigate(`/search?term=${searchInput}`);
+      navigate(`/search?term=${encodeURIComponent(searchInput)}`);
     };
 
     const {data} = useSearchTerms({term: searchTerm});
