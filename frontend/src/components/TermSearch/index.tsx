@@ -74,7 +74,7 @@ export const TermSearch = () => {
                 render={({field}) => (
                   <FormItem>
                     <FormControl>
-                      <Input className="p-0 m-0 border-none text-base"
+                      <Input className="p-0 m-0 border-none text-base focus-visible:ring-0 shadow-none"
                              placeholder="Search for a term..." {...field} onChange={(event) => {
                         field.onChange(event);
                         handleSearchInputChange(event)
