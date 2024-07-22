@@ -21,7 +21,7 @@ export const SearchResultsPage = () => {
       </Heading>
       <span>{data?.count ?? 0} results found</span>
       <Separator className="my-2"/>
-      {data?.count! > 0 && (
+      {data && data.count! > 0 && (
         <ul>
           {data?.terms.map((term) => (
             <li key={term.id}>

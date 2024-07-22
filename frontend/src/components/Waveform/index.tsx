@@ -19,12 +19,11 @@ export const WaveForm: React.FC<WaveFormProps> = (
     if (!canvas || !analyzer) return;
     const animate = () => {
       requestAnimationFrame(animate);
-      canvas.width = canvas.width;
       animateBars({analyzer, canvas, canvasCtx, dataArray, bufferLength, color});
     };
 
     animate();
-  }, [dataArray, analyzer, bufferLength]);
+  }, [dataArray, analyzer, bufferLength, theme.colors.accent.secondary, canvas, canvasCtx]);
 
   return (
     <WaveformCanvas

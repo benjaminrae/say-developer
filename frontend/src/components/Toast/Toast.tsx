@@ -22,7 +22,7 @@ export const Toast = ({toast, onClick}: ToastProps): React.ReactElement => {
         clearTimeout(timeout)
       }
     }
-  }, []);
+  }, [onClick, toast.autoRemoveDelayInMs, toast.willAutoRemove]);
 
   return (
     <ToastWrapper toast={toast}>

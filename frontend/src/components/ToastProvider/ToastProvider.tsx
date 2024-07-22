@@ -22,6 +22,10 @@ export const ToastProvider = ({children}: PropsWithChildren): React.ReactElement
 
   const dismissToast = useCallback((id: string) => {
     setToasts(toasts.filter((toast) => toast.id !== id))
+  }, [toasts])
+
+  const addToast = useCallback((toast: ToastNotification) => {
+    setToasts(oldToasts => [...oldToasts, toast])
   }, [])
 
   const createToastId = () => nanoid();
@@ -34,8 +38,7 @@ export const ToastProvider = ({children}: PropsWithChildren): React.ReactElement
       autoRemoveDelayInMs: options?.autoRemoveDelayInMs ?? defaultAutoRemoveDelayInMs,
       willAutoRemove: options?.willAutoRemove ?? true,
     });
-  }, [])
-
+  }, [addToast])
   const failureToast = useCallback((text: string, options?: ToastOptions) => {
     addToast({
       id: createToastId(),
@@ -44,11 +47,7 @@ export const ToastProvider = ({children}: PropsWithChildren): React.ReactElement
       autoRemoveDelayInMs: options?.autoRemoveDelayInMs ?? defaultAutoRemoveDelayInMs,
       willAutoRemove: options?.willAutoRemove ?? true
     })
-  }, [])
-
-  const addToast = useCallback((toast: ToastNotification) => {
-    setToasts(oldToasts => [...oldToasts, toast])
-  }, [])
+  }, [addToast])
 
   return (
     <ToastContext.Provider value={{successToast, failureToast, dismissToast}}>

@@ -70,7 +70,7 @@ export const useMicrophone = (): Microphone => {
     stopRecording()
     setAudioURL(null);
     setAudio(null);
-  }, [])
+  }, [stopRecording])
 
   return {
     hasPermission,

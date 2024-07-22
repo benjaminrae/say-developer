@@ -4,7 +4,7 @@ export const animateBars = ({analyzer, canvas, canvasCtx, dataArray, bufferLengt
   analyzer.getByteFrequencyData(dataArray);
   canvasCtx.fillStyle = '#000';
   const HEIGHT = canvas.height / 2;
-  let barWidth = Math.ceil(canvas.width / bufferLength) * 2.5;
+  const barWidth = Math.ceil(canvas.width / bufferLength) * 2.5;
   let barHeight: number;
   let x = 0;
 
