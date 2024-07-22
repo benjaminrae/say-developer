@@ -25,7 +25,7 @@ export const SearchResultsPage = () => {
         <ul>
           {data?.terms.map((term) => (
             <li key={term.id}>
-              <Link to={`/term/${term.raw}`}>{term.raw}</Link>
+              <Link to={`/term/${encodeURIComponent(term.raw)}`}>{term.raw}</Link>
             </li>
           ))}
         </ul>
@@ -33,7 +33,8 @@ export const SearchResultsPage = () => {
       {!data?.count && (
         <>
           <Paragraph>Can't find what you're looking for?</Paragraph>
-          <Link to={`/new-term?term=${term}`}>Request "{term}" be added to Say.dev</Link>
+          <Link to={`/new-term?term=${encodeURIComponent(term!)}`}>Request "{term}" be added to
+            Say.dev</Link>
         </>
       )}
     </Page>
