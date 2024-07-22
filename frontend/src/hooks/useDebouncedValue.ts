@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { debounce } from '../utils/debounce';
+import {useMemo, useState} from 'react';
+import {debounce} from '../utils/debounce';
 
 export const useDebouncedValue = <Value>(defaultValue: Value, timeout = 400) => {
   const [value, setValue] = useState<Value>(defaultValue);
