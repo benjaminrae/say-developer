@@ -1,13 +1,15 @@
-import { LinkStyled } from './Link.styles';
-import { useLinkDestination } from './hooks';
-import { LinkProps } from './types';
+import {useLinkDestination} from './hooks';
+import {LinkProps} from './types';
+import {Link as RouterLink} from "react-router-dom";
+import {cn} from "@/libs/tailwind/utils.ts";
 
-export const Link = ({ children, to, href, ...props }: LinkProps) => {
-  const { reloadDocument, destination } = useLinkDestination({ to, href });
+export const Link = ({children, to, href, className, ...props}: LinkProps) => {
+  const {reloadDocument, destination} = useLinkDestination({to, href});
 
   return (
-    <LinkStyled to={destination} reloadDocument={reloadDocument} {...props}>
+    <RouterLink className={cn("hover:underline", className)} to={destination}
+                reloadDocument={reloadDocument} {...props}>
       {children}
-    </LinkStyled>
+    </RouterLink>
   );
 };

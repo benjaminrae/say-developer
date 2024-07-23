@@ -1,7 +1,4 @@
-import styled, { Size } from 'styled-components';
-import { Page } from '../../components/Page';
-
-export const HomePageStyled = styled(Page)``;
+import styled, {Size} from 'styled-components';
 
 export const HomePageTitle = styled.h1<{ size: Size }>`
   font-size: 2.5rem;
@@ -9,7 +6,7 @@ export const HomePageTitle = styled.h1<{ size: Size }>`
   font-weight: 800;
   text-align: center;
 
-  ${({ size }) => {
+  ${({size}) => {
     switch (size) {
       case 'xs':
       case 'sm':

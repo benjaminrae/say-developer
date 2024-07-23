@@ -11,13 +11,13 @@ export const MainLayout = () => {
   return (
     <MainContainer>
       <Header/>
-      <Separator className="my-2"/>
       <FeatureFlag featureName={Features.navigationMenu}>
         <Navigation/>
         <Separator className="my-2"/>
       </FeatureFlag>
-      <Outlet/>
-      <Separator className="my-2"/>
+      <div className="flex-1">
+        <Outlet/>
+      </div>
       <Footer/>
     </MainContainer>
   );

@@ -23,12 +23,11 @@ var (
 )
 
 func sendTerms(terms []Term) {
-	url := "https://api.say.dev/terms"
-	//url:= "http://localhost:3000/terms"
-	cookie := "session=2282d835-588a-4910-82d1-ff92f1349fb6"
+	//url := "https://api.say.dev/terms"
+	url := "http://localhost:3000/terms"
+	cookie := "session=490a2a48-0153-4d25-8a54-08dec3026428"
 
 	for _, term := range terms {
-		// Remove the ID field by creating a new map and copying the relevant fields
 		dataToSend := map[string]interface{}{
 			"raw":         term.Raw,
 			"description": term.Description,
@@ -36,13 +35,11 @@ func sendTerms(terms []Term) {
 			"aliases":     term.Aliases,
 		}
 
-		// Convert the map to JSON
 		jsonData, err := json.Marshal(dataToSend)
 		if err != nil {
 			log.Fatalf("Error marshalling data: %v", err)
 		}
 
-		// Create a new HTTP request
 		req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
 		if err != nil {
 			log.Fatalf("Error creating request: %v", err)
@@ -50,7 +47,6 @@ func sendTerms(terms []Term) {
 		req.Header.Set("Content-Type", "application/json")
 		req.Header.Set("Cookie", cookie)
 
-		// Send the request
 		client := &http.Client{}
 		resp, err := client.Do(req)
 		if err != nil {
@@ -58,7 +54,6 @@ func sendTerms(terms []Term) {
 		}
 		defer resp.Body.Close()
 
-		// Print the response status and content for debugging purposes
 		fmt.Printf("Status Code: %d\n", resp.StatusCode)
 	}
 }

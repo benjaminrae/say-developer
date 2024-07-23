@@ -1,10 +1,11 @@
-import { Flex } from '../../shared/Flex';
-import { Link } from '../Link';
-import { FooterStyled } from './Footer.styled';
+import {Flex} from '@/shared/Flex';
+import {Link} from '../Link';
+
 
 export const Footer = () => {
   return (
-    <FooterStyled>
+    // <footer className="fixed bottom-0 left-0 w-full px-4 py-2">
+    <footer className="py-2">
       <Flex justifyContent="center" alignItems="center">
         <span>
           Made by{' '}
@@ -14,6 +15,6 @@ export const Footer = () => {
           © {new Date().getFullYear()}
         </span>
       </Flex>
-    </FooterStyled>
+    </footer>
   );
 };

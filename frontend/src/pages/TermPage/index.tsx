@@ -1,4 +1,4 @@
-import {Link, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {Page} from '@/components/Page';
 import {useGetTermWithPronunciations} from '@/domains/terms/hooks.ts';
 import {Play} from "../../shared/Icons/Play.tsx";
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/card.tsx";
 import {Separator} from "@/components/ui/separator.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
+import {Link} from "@/components/Link";
 
 export const TermPage = () => {
   const {term} = useParams();

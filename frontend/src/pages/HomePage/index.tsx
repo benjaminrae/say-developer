@@ -2,13 +2,14 @@ import {TermSearch} from '@/components/TermSearch';
 import {WordAutoCarousel} from '@/components/WordAutoCarousel';
 import {useBreakpoints} from '@/hooks/useBreakpoints.ts';
 import {Flex} from '@/shared/Flex';
-import {HomePageStyled, HomePageTitle} from './HomePageStyled';
+import {HomePageTitle} from './HomePageStyled';
+import {Page} from "@/components/Page";
 
 export const HomePage = () => {
   const {isPhone} = useBreakpoints();
 
   return (
-    <HomePageStyled pageTitle="Home">
+    <Page pageTitle="Home">
       <Flex
         flexDirection="column"
         justifyContent="center"
@@ -35,6 +36,6 @@ export const HomePage = () => {
         </Flex>
         <TermSearch/>
       </Flex>
-    </HomePageStyled>
+    </Page>
   );
 };

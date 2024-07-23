@@ -1,13 +1,14 @@
 import { useIconSize } from './hooks';
 import { IconProps } from './types';
 
-export const Github = ({ size, color }: IconProps) => {
+export const Github = ({ size, color, className }: IconProps) => {
   const iconSize = useIconSize(size ?? 'md');
 
   return (
     <svg
       width={iconSize}
       height={iconSize}
+      className={className}
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       fill="none"
