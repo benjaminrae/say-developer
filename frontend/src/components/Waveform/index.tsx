@@ -19,6 +19,9 @@ export const WaveForm: React.FC<WaveFormProps> = (
     if (!canvas || !analyzer) return;
     const animate = () => {
       requestAnimationFrame(animate);
+      // required to update waveform
+      // eslint-disable-next-line no-self-assign
+      canvas.width = canvas.width;
       animateBars({analyzer, canvas, canvasCtx, dataArray, bufferLength, color});
     };
 
