@@ -6,6 +6,7 @@ import {PronounceTermPage} from '../pages/PronounceTermPage';
 import {SearchResultsPage} from '../pages/SearchResultsPage';
 import {TermPage} from '../pages/TermPage';
 import {PronouncePage} from "@/pages/PronouncePage";
+import {NotFoundPage} from "@/pages/NotFoundPage";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
         path: '/pronounce/:term',
         element: <PronounceTermPage/>,
       },
+      {
+        path: '*',
+        element: <NotFoundPage/>,
+      }
     ],
   },
 ]);
