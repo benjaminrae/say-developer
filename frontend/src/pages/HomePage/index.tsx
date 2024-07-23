@@ -4,6 +4,7 @@ import {useBreakpoints} from '@/hooks/useBreakpoints.ts';
 import {Flex} from '@/shared/Flex';
 import {HomePageTitle} from './HomePageStyled';
 import {Page} from "@/components/Page";
+import {FeaturedTerms} from "@/components/FeaturedTerms/FeaturedTerms.tsx";
 
 export const HomePage = () => {
   const {isPhone} = useBreakpoints();
@@ -35,7 +36,9 @@ export const HomePage = () => {
           </HomePageTitle>
         </Flex>
         <TermSearch/>
+        <FeaturedTerms className="mt-12 self-center" delay={10000}/>
       </Flex>
     </Page>
   );
 };
+
