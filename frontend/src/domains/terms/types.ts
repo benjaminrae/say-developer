@@ -7,6 +7,7 @@ export type Term = {
   description: string;
   aliases: string[];
   createdBy: string;
+  phonetic: string;
 };
 
 export type TermWithPronunciations = Term & {
@@ -18,7 +19,9 @@ export type NewTerm = {
   words?: string[];
   description?: string;
   aliases?: string[];
+  // tags: string[];
 };
+
 
 export type PaginatedTerms = {
   terms: Term[];

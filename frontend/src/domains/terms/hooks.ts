@@ -1,5 +1,5 @@
-import { UseQueryOptions, useMutation, useQuery } from 'react-query';
-import { QUERY_KEYS } from '../../libs/react-query';
+import {useMutation, useQuery, UseQueryOptions} from 'react-query';
+import {QUERY_KEYS} from '@/libs/react-query';
 import {createTerm, getRecentTerms, getTerm, getTermWithPronunciations, searchTerms} from './api';
 import {PaginatedTerms, SearchTermsQuery, Term, TermWithPronunciations} from './types';
 
