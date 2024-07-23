@@ -48,7 +48,7 @@ export const ToastWrapper = styled.div<ToastWrapperProps>`
 
   @keyframes slide-in {
     from {
-      opacity: 0%;
+      opacity: 0;
     }
 
     to {

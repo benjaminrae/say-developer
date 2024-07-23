@@ -4,7 +4,6 @@ import {ToastContainer} from "./ToastContainer.tsx";
 import {Toast} from "../Toast/Toast.tsx";
 import {ToastType} from "./types.tsx";
 import {nanoid} from "nanoid";
-import {MainContainer} from "../MainContainer/MainContainer.tsx";
 import {ToastOptions} from "./types.ts";
 
 export type ToastNotification = {
@@ -51,14 +50,12 @@ export const ToastProvider = ({children}: PropsWithChildren): React.ReactElement
 
   return (
     <ToastContext.Provider value={{successToast, failureToast, dismissToast}}>
-      <MainContainer>
-        <ToastContainer>
-          {toasts.map(toast => (
-            <Toast key={toast.id} toast={toast} onClick={() => dismissToast(toast.id)}/>
-          ))}
-          {children}
-        </ToastContainer>
-      </MainContainer>
+      <ToastContainer>
+        {toasts.map(toast => (
+          <Toast key={toast.id} toast={toast} onClick={() => dismissToast(toast.id)}/>
+        ))}
+        {children}
+      </ToastContainer>
     </ToastContext.Provider>
   )
 }
