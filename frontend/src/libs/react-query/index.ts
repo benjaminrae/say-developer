@@ -1,4 +1,4 @@
-import { QueryClient } from 'react-query';
+import {QueryClient} from 'react-query';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,6 +19,7 @@ export const QUERY_KEYS = {
   GET_TERM_WITH_PRONUNCIATIONS: 'GET_TERM_WITH_PRONUNCIATIONS',
   GET_PRONUNCIATION_URL: 'GET_PRONUNCIATION_URL',
   GET_RECENT_TERMS: 'GET_RECENT_TERMS',
+  GET_FEATURED_TERMS: 'GET_FEATURED_TERMS',
 } as const;
 
 const queryKeyValues = Object.values(QUERY_KEYS);
