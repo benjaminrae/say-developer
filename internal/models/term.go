@@ -3,7 +3,6 @@ package models
 import (
 	"context"
 	"database/sql"
-	"encoding/json"
 	"github.com/go-redis/redis/v8"
 	"strings"
 
@@ -74,21 +73,25 @@ func GetRecentTerms(redis *redis.Client) ([]string, error) {
 	return rows, nil
 }
 
-func GetFeaturedTerms(redis *redis.Client) ([]Term, error) {
-	result, err := redis.Get(context.Background(), "terms:featured").Result()
+func GetFeaturedTermsKeys(redis *redis.Client) ([]string, error) {
+	var cursor uint64
+	var n int
+	var keys []string
+	for {
+		var err error
+		keys, cursor, err = redis.Scan(context.Background(), cursor, "terms:featured:*", 10).Result()
 
-	if err != nil {
-		return nil, err
+		if err != nil {
+			return nil, err
+		}
+
+		n += len(keys)
+
+		if cursor == 0 {
+			break
+		}
 	}
 
-	var terms = &[]Term{}
+	return keys, nil
 
-	err = json.Unmarshal([]byte(result), terms)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return *terms, nil
 }
-

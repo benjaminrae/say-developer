@@ -25,7 +25,7 @@ var (
 func sendTerms(terms []Term) {
 	//url := "https://api.say.dev/terms"
 	url := "http://localhost:3000/terms"
-	cookie := "session=490a2a48-0153-4d25-8a54-08dec3026428"
+	cookie := "session=36edaf09-145a-4f46-ae8f-33c8a349ab7d"
 
 	for _, term := range terms {
 		dataToSend := map[string]interface{}{
