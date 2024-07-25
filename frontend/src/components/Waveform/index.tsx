@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {animateBars} from './logic.helper';
 import {WaveFormProps} from './types';
-import {WaveformCanvas} from "./Waveform.styled.tsx";
 import {useTheme} from "styled-components";
 
 export const WaveForm: React.FC<WaveFormProps> = (
@@ -29,7 +28,7 @@ export const WaveForm: React.FC<WaveFormProps> = (
   }, [dataArray, analyzer, bufferLength, theme.colors.accent.secondary, canvas, canvasCtx]);
 
   return (
-    <WaveformCanvas
+    <canvas
       ref={canvasRef}
     />
   );
