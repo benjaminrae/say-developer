@@ -3,16 +3,15 @@ package models
 import (
 	"context"
 	"encoding/json"
-	"github.com/go-redis/redis/v8"
+	"github.com/benjaminrae/say-developer/internal/redis"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
-	tcRedis "github.com/testcontainers/testcontainers-go/modules/redis"
 	"testing"
 )
 
 func TestGetFeaturedTermsKeys(t *testing.T) {
 	t.Run("should retrieve featured term keys", func(t *testing.T) {
-		tearDown, redisClient := setupRedis(t)
+		tearDown, redisClient := redis.SetupRedis(t)
 		defer tearDown(t)
 
 		key := "terms:featured:featured-term-1"
@@ -33,7 +32,7 @@ func TestGetFeaturedTermsKeys(t *testing.T) {
 
 func TestGetFeaturedTerms(t *testing.T) {
 	t.Run("should retrieve featured terms", func(t *testing.T) {
-		tearDown, redisClient := setupRedis(t)
+		tearDown, redisClient := redis.SetupRedis(t)
 		defer tearDown(t)
 
 		javaId := uuid.New()
@@ -76,31 +75,4 @@ func TestGetFeaturedTerms(t *testing.T) {
 
 func createKey(java Term) string {
 	return "terms:featured:" + java.Id.String()
-}
-
-func setupRedis(tb testing.TB) (func(tb testing.TB), *redis.Client) {
-	ctx := context.Background()
-	container, err := tcRedis.Run(ctx,
-		"docker.io/redis:7")
-
-	if err != nil {
-		tb.Fatal(err)
-	}
-
-	connectionString, err := container.ConnectionString(ctx)
-	if err != nil {
-		tb.Fatal(err)
-	}
-
-	options, err := redis.ParseURL(connectionString)
-	if err != nil {
-		tb.Fatal(err)
-	}
-
-	redisClient := redis.NewClient(options)
-
-	return func(tb testing.TB) {
-		container.Terminate(ctx)
-		redisClient.Close()
-	}, redisClient
 }

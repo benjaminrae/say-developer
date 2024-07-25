@@ -67,7 +67,7 @@ func (s *service) Health() (string, error) {
 		return status, err
 	}
 
-	log.Printf("Redis status: %s\n", status)
+	log.Printf("redis status: %s\n", status)
 
 	return "Healthy", nil
 }

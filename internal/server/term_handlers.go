@@ -232,3 +232,24 @@ func (s *Server) GetRecentTermsHandler(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, terms)
 }
+
+func (s *Server) GetFeaturedTermsHandler(c echo.Context) error {
+	redisClient := s.redis.GetClient()
+	keys, err := models.GetFeaturedTermsKeys(redisClient)
+
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	terms, errors := models.GetFeaturedTerms(redisClient, keys)
+
+	if len(errors) > 0 {
+		return c.String(http.StatusInternalServerError, errors[0].Error())
+	}
+
+	if len(terms) == 0 {
+		terms = []models.Term{}
+	}
+
+	return c.JSON(http.StatusOK, terms)
+}

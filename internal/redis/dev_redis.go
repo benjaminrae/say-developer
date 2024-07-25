@@ -11,16 +11,16 @@ import (
 )
 
 func init() {
-	fmt.Println("Starting Redis dev")
+	fmt.Println("Starting redis dev")
 
-	_, err := startRedis()
+	_, err := startDevRedis()
 
 	if err != nil {
 		panic(err)
 	}
 }
 
-func startRedis() (testcontainers.Container, error) {
+func startDevRedis() (testcontainers.Container, error) {
 	ctx := context.Background()
 
 	container, err := redis.Run(ctx,
